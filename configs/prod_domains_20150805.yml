@@ -1,0 +1,22 @@
+---
+ttl_seconds: 60
+hosted_zones:
+  # - id: "/hostedzone/Z1GT5PV6ATEFLU"
+  #   domains:
+  #   - dnsname: univision.mobi.
+  #     resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  #     resource_backup: 64.14.58.89
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+    #   - dnsname: univision.com.
+    #     resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    #     resource_backup: 64.14.58.197
+  - dnsname: www.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_backup: www.univision.com.edgesuite.net.
+  - dnsname: m.www.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: beta.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.

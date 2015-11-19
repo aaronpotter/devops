@@ -1,0 +1,39 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+MESSAGE="# (c) #{Time.now.year} Univision Communications Inc.  All rights reserved."
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'commander'
+require 'hashie'
+
+require 'pry'
+require 'awesome_print'
+
+begin
+
+   opts = Slop.parse(strict: true, help: true) do
+     banner "Copyright Files, version #{VERSION}\n\nUsage: copyright_app [options]"
+     on 'e', 'file_ext',  '[required] the file extention to add the copyright message to.', argument: true
+     on 'd', 'directory', '[optional] directory to search.', { argument: :optional, default: Dir.pwd }
+     on 'v', 'version' do
+       puts "Copyright Files, version #{VERSION}"
+       exit 0
+     end
+   end
+
+   raise 'File extention, required!' unless opts.file_ext?
+
+   com_opts = Hashie::Mash.new( local: true )
+
+   Dir["#{ opts['directory'] }/**/*#{ opts['file_ext'] }"].each{ |path|
+      Commander::Command.new( "/usr/local/opt/gnu-sed/libexec/gnubin/sed -i -e \'1i#{MESSAGE}\\\\\' #{ path }", com_opts ).run
+   }
+
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+  puts opts
+end

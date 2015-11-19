@@ -1,0 +1,104 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+
+$:.unshift File.expand_path('../../_code/lib', __FILE__)
+require 'commander'
+require 'highline/import'
+require 'tempfile'
+require 'slop'
+require 'octokit'
+require 'hashie'
+
+require 'pry'
+require 'awesome_print'
+
+begin
+
+
+# GATHER SETTINGS ###################################################
+
+   slop = Slop.parse(strict: true, help: true) do
+      banner 'Usage: db_transfer [options]'
+      on 'd', 'database',    '[required] the name of the database to transfer.', argument: true
+      on      'source_host', '[optional] host of the db source server.', { argument: :optional, default: '198.61.228.97' }
+      on      'dest_host',   '[optional] host of the db destination server.', { argument: :optional, default: '10.176.132.158' }
+   end
+
+   raise 'Database Name, required!' unless slop.database?
+
+   opts = Hashie::Mash.new(slop.to_h)
+
+# RUN COMMANDS ######################################################
+
+   date_str = Time.now.strftime('%F')
+
+   puts 'Please provide server access that has access to the source_host server.'
+   box = Hashie::Mash.new()
+   box.user    = ask('     user: ') { |q| q.default = 'kbspdev' }
+   box.ssh_key = ask('  ssh_key: ') { |q| q.default = '~/.ssh/kbspdev-django.apps.pem' }
+   box.host    = ask('     host: ') { |q| q.default = 'django.apps.kbsp.com' }
+
+   puts 'Please provide creds for SOURCE db user.'
+   username = ask('  username: ') { |q| q.default = 'postgres' }
+   password = ask('  password: ') { |q| q.echo = false }
+
+   [
+      {
+         list: [
+            "PGPASSWORD=#{ password } pg_dump #{ opts.database } -h #{ opts.source_host } -U #{ username } > #{ date_str }-dump.sql",
+         ],
+         local: false
+      },
+      {
+         list: [
+            "scp -i #{ box.ssh_key } #{ box.user }@#{ box.host }:/home/#{ box.user }/#{ date_str }-dump.sql ./",
+         ],
+         local: true
+      },
+   ].each{ |c|
+      box.local = c[:local]
+      Commander::Commands.new(c[:list], box).run
+   }
+
+   puts 'Please provide server access that has access to the dest_host server.'
+   box = Hashie::Mash.new()
+   box.user    = ask('     user: ') { |q| q.default = 'kbspdev' }
+   box.ssh_key = ask('  ssh_key: ') { |q| q.default = '~/.ssh/kbspdev-platform' }
+   box.host    = ask('     host: ') { |q| q.default = '162.209.109.19' }
+
+   puts 'Please provide creds for DESTINATION db user.'
+   orig_username = username
+   username = ask('  username: ') { |q| q.default = 'prestige_cms' }
+   password = ask('  password: ') { |q| q.echo = false }
+
+   [
+      {
+         list: [
+            "sed -i 's/#{orig_username};/#{username};/g' ./#{ date_str }-dump.sql",
+            "scp -i #{ box.ssh_key } ./#{ date_str }-dump.sql #{ box.user }@#{ box.host }:/home/#{ box.user }/",
+         ],
+         local: true
+      },
+      {
+         list: [
+            "PGPASSWORD=#{ password } psql #{ opts.database } -h #{ opts.dest_host } -U #{ username } < #{ date_str }-dump.sql",
+         ],
+         local: false
+      },
+   ].each{ |c|
+      box.local = c[:local]
+      Commander::Commands.new(c[:list], box).run
+   }
+
+# END ###############################################################
+
+  puts ''
+  puts '...DONE'
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+  puts slop
+end

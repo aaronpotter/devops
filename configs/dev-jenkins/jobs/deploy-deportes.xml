@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <logRotator class="hudson.tasks.LogRotator">
+    <daysToKeep>-1</daysToKeep>
+    <numToKeep>-1</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
+  </logRotator>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.plugins.slack.SlackNotifier_-SlackJobProperty plugin="slack@1.7">
+      <teamDomain></teamDomain>
+      <token></token>
+      <room></room>
+      <startNotification>false</startNotification>
+      <notifySuccess>false</notifySuccess>
+      <notifyAborted>false</notifyAborted>
+      <notifyNotBuilt>false</notifyNotBuilt>
+      <notifyUnstable>false</notifyUnstable>
+      <notifyFailure>false</notifyFailure>
+      <notifyBackToNormal>false</notifyBackToNormal>
+      <notifyRepeatedFailure>false</notifyRepeatedFailure>
+      <includeTestSummary>false</includeTestSummary>
+      <showCommitList>false</showCommitList>
+    </jenkins.plugins.slack.SlackNotifier_-SlackJobProperty>
+    <de.pellepelster.jenkins.walldisplay.WallDisplayJobProperty plugin="jenkinswalldisplay@0.6.28"/>
+  </properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <jenkins.triggers.ReverseBuildTrigger>
+      <spec></spec>
+      <upstreamProjects>uvn-develop-deportes</upstreamProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+      </threshold>
+    </jenkins.triggers.ReverseBuildTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.plugins.copyartifact.CopyArtifact plugin="copyartifact@1.35">
+      <project>uvn-develop-integration</project>
+      <filter></filter>
+      <target></target>
+      <excludes></excludes>
+      <selector class="hudson.plugins.copyartifact.StatusBuildSelector"/>
+      <doNotFingerprintArtifacts>false</doNotFingerprintArtifacts>
+    </hudson.plugins.copyartifact.CopyArtifact>
+    <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.12">
+      <delegate>
+        <consolePrefix>SSH: </consolePrefix>
+        <delegate>
+          <publishers>
+            <jenkins.plugins.publish__over__ssh.BapSshPublisher>
+              <configName>ubuntu@54.152.100.88</configName>
+              <verbose>true</verbose>
+              <transfers>
+                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                  <remoteDirectory>/home/ubuntu/</remoteDirectory>
+                  <sourceFiles>*.war</sourceFiles>
+                  <excludes></excludes>
+                  <removePrefix></removePrefix>
+                  <remoteDirectorySDF>false</remoteDirectorySDF>
+                  <flatten>false</flatten>
+                  <cleanRemote>false</cleanRemote>
+                  <noDefaultExcludes>false</noDefaultExcludes>
+                  <makeEmptyDirs>false</makeEmptyDirs>
+                  <patternSeparator>[, ]+</patternSeparator>
+                  <execCommand>sudo mv /home/ubuntu/*.war /server/univision/webapp/ROOT.war &amp;&amp; sudo chown tomcat:tomcat /s
+erver/univision/webapp/ROOT.war &amp;&amp; sudo service univision restart</execCommand>
+                  <execTimeout>120000</execTimeout>
+                  <usePty>false</usePty>
+                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+              </transfers>
+              <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+              <usePromotionTimestamp>false</usePromotionTimestamp>
+              <credentials class="jenkins.plugins.publish_over_ssh.BapSshCredentials">
+                <secretPassphrase>gauEoBUIekx/eOfd6YcnPg==</secretPassphrase>
+                <key>-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAvx0PA2ZLItPWIhEnxIk/BWyytJueh0c/L4K/ttp/PTxXfMb+6/lJA+/fWr8y
+S/7fPgdgRnhnJcilUFy6DafNOyC8HGZ7zvlHy0xaP7zUrL/se9uTNAxAM/vp+2aGamVosdmW2VQb
+iyt2ciJ2kuA1+l1xP5xQk88Xh5eAZNmgG4mKUd1AkO/ehcIl5U/HkOsTo5L25SgTzhsj1/0lfGiU
+z3jcuP0zxeSHknkYQ4N20zC7WQe5RNKl4iEL7FRoxH5mxnZK65IdUTSOUI9kcL4qG08dZ3Ki4Dm2
+12BonlBCMw1mp17v6JeGWury/cIZbVQZMGYzZUIe/2+VQEl6FE9X/wIDAQABAoIBAFcOx64GxSdi
+VGNEaVcwJhM0htubIEYDgJcF+oszUU710+y1QZ8A+e/fL2HJQwI3Yj6BYav4YRRnKFdJRj++NtE+
+gjJ1xORtzfSgHWR3gnIHI5TwW0gUZJLJqLaq54REGcMamYr6s2lcLSKk7FrP5Abe1h3h+Rq79b4A
+l65ZLIQeA3Vg04i01JCMnvdOY07hxcM9Q0uutak0vnJZNc/Sn+WdCH88n63FQjAE+J+FfbXm5xLC
+idavTpIbzNDsejInsB0BV2eCOA/W5QK3dj/b9LPfeA8pFaIIHsCj3gLQs+b3jDci4UyE5jZDhfDW
+LvpD4yO7yG7snDvrW6JW7uXDq2ECgYEA7Mu9NLCiFzwNxecu+Z79+D/aJjku53tIm8FooNMVSVRt
+58R1610bSl2TU66aeIW3mPfEJ/BdO2IpFvDC60QWPZ+GhbdcmVIXqaKoKSHJuC/GUluVsdWegIuD
+Cwv5kt5LHN7SUUgmmxCYHFAhWIGSmbMLhWzEv3kfQznZ5rVBUTcCgYEAzpzhhr5lF3y7s8WOLsfq
+kDC+MhfzVKCGslqZuwBXZWjbDjtvQ8rk2eV7hG+bjMqG1DIExqOhiFQ3JbMzaYQp664Z+SlbMri4
+dG9erI56KOVx0AO0+Zb7c6/ykxvGDTsbaEU9DnNi0L/FG6/xMHYmZbddfaKyIlh5lmNeFs3OM3kC
+gYEAgHg4+rEp/7kRL+GxVrSvzVO3Iy27CNOWHQrdnQNodRRdXHT2FO+6sqn6GFiObfz+Evu5bIG3
+01P6Pvv4hHO4LU6zSTCmCHjFZb9dxJMUQd2Jl30gxg7Do7INMp0YlloMHmm1aWvfphlmrVW8Aayq
+wMCm64iLZeZs06g7VDPacBkCgYBTr6WFfz7RGZupgB5MAnuWtbeD8MGFiJOmUB4uaT/8+lCn3hj+
+G4NAYrv5837MsweTkULv9j0qS/oeUgxD891K8bThgAfJbpp/xtBRElCWmgDUYXv/EFF/FUgqn7hD
+iapbPJgzbzcaGGLNCSGnIGQDFRdQGQMP+EgfStZEZE3d+QKBgQDslrFyyTNoAnf8itv3JA34QzKW
+1hC9WZZe6lfEi7waPQcbZQHoj01ywXHnHh7fK0Hq4v87NNdbrKgOpMhbrzDLj0cWtQvBbhIPqGgp
+sUd99Sj0MAlM04MRzTSBqcAjpOeaTVJ/A99FDVXAwm39OjgqJ+k4jn7OKcIlJKzkpVtJ1w==
+-----END RSA PRIVATE KEY-----</key>
+                <keyPath></keyPath>
+                <username>ubuntu</username>
+              </credentials>
+            </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+          </publishers>
+          <continueOnError>false</continueOnError>
+          <failOnError>false</failOnError>
+          <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+          <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin" reference="../.."/>
+        </delegate>
+      </delegate>
+    </jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin>
+  </builders>
+  <publishers>
+    <hudson.plugins.deploy.DeployPublisher plugin="deploy@1.10">
+      <adapters>
+        <hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
+          <userName>jenkins</userName>
+          <passwordScrambled>RWdoaWU1b2hCdVBlZWppZXlvb0tvaE1vc2gzYWlqb2g=</passwordScrambled>
+          <url>http://sports.dev.y.univision.com:8080/</url>
+        </hudson.plugins.deploy.tomcat.Tomcat7xAdapter>
+      </adapters>
+      <contextPath>/</contextPath>
+      <war>**/*.war</war>
+      <onFailure>false</onFailure>
+    </hudson.plugins.deploy.DeployPublisher>
+    <hudson.tasks.Mailer plugin="mailer@1.11">
+      <recipients></recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.25">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

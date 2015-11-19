@@ -1,0 +1,106 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+require 'csv'
+require 'httparty'
+
+class String
+  def to_dash
+    self.
+      gsub(/\W/,'').
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1-\2').
+      gsub(/([a-z\d])([A-Z])/,'\1-\2').
+      downcase
+  end
+end
+
+class Api
+  include DevopsApi
+end
+
+def is_32? string
+  string =~ /32$/
+end
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Security Group Report, version #{VERSION}\n\nUsage: security_group_report [options]"
+    on 'p', 'profiles', '[required] The AWS credential profile(s) to use.', argument: true
+    on 't', 'tag', '[required] The tage to search for.', argument: true
+    on 'r', 'regions', 'The region(s) to use for AMI creation.', { argument: :optional, default: nil }
+    on 'v', 'version' do
+      puts "Security Group Report, version #{VERSION}"
+      exit 0
+    end
+  end
+
+  opts_slop = opts
+  opts = Hashie::Mash.new(opts_slop.to_hash)
+
+  # Profile required test
+  raise DevopsApi::Exceptions::MissingReqiredOption, 'AWS Profile(s) name required!' unless opts.profiles?
+  raise DevopsApi::Exceptions::MissingReqiredOption, 'Tag text required!' unless opts.tag?
+
+  # Top Level Vars
+  profiles = opts.profiles.split(',')
+  api = Api.new(profiles[0])
+  if opts.regions.nil?
+    regions = api.ec2_client.describe_regions.regions.map{|r| r.region_name } 
+  else
+    regions = opts.regions.split(',')
+  end
+  timestamp = Time.now.strftime("%Y%m%d%H%M%S")
+  image_ids = []
+
+  # caller_reference = "domain_import_#{Time.now.strftime("%Y%m%d%H%M%S")}"
+
+  puts '# Environments to report on ###########################################'
+  puts ''
+  ap profiles
+  puts ''
+
+  puts '# Creating AMIs #######################################################'
+  puts ''
+  profiles.each do |profile|
+    puts "# Starting search for tag #{opts.tag} in \"#{profile}\" ####################################################"[0..70]
+    regions.each do |region|
+      puts "In region: #{region}..."
+      api_for_region = Api.new(profile, region)
+      api_for_region.servers(opts.tag, 'Platform').each do |server|
+        server_name = server.tags.select{|i| i.key == 'Name'}.first.value.to_dash
+        name = "#{timestamp}-#{server_name}"
+        ap name
+        create_ami_resp = api_for_region.ec2_client.create_image({ instance_id: server.id, name: name })
+        puts "Image #{create_ami_resp.image_id} created"
+        image_ids << create_ami_resp.image_id
+      end
+      puts ''
+    end
+    puts ''
+  end
+
+  puts '# AMI CREATION COMPLETE ###############################################'
+  puts ''
+
+rescue DevopsApi::Exceptions::MissingReqiredOption => e
+  puts ''
+  puts "ERROR: #{e.message}"
+  puts ''
+  puts opts_slop
+  exit 1
+rescue => e
+  puts ''
+  puts "ERROR: #{e.class}"
+  puts "ERROR: #{e.message}"
+  puts "ERROR: #{e.backtrace.join("\nERROR: ")}"
+  puts ''
+  puts opts_slop
+  exit 1
+end

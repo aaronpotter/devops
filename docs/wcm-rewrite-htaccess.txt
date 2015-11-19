@@ -1,0 +1,3033 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+#--- order is important since keyword based redirects must be processed first ----
+#----------------- despierta-america -------------------
+RewriteCond "%{HTTP_HOST}" "^(www\.)?despiertaamerica\.com" [NC]
+RewriteRule ^vota$   http://univision.ipowow.com/da   [R=301,L,NE,NC]
+RewriteRule ^nuevohogar$   http://uvideos.com/shows/despierta-america/en-tu-nuevo-hogar   [R=301,L,NE,NC]
+RewriteRule ^entunuevohogar$   http://uvideos.com/shows/despierta-america/en-tu-nuevo-hogar   [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?despiertaamerica\.com" [NC]
+RewriteRule ^(.*)$   http://entretenimiento.univision.com/despierta-america?cmpid=vnt:despiertaamerica.com [R=301,L,NE,NC]
+
+#----------- unimas redirects --------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unimas\.com" [NC]
+RewriteRule ^missusa$   http://tv.univision.com/shows/unimas/miss-usa/ [R=301,L,NE,NC]
+RewriteRule ^metastasis$   http://videos.univision.com/shows/metastasis [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unimas\.com" [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/unimas?cmpid=vnt:unimas.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unimastv\.com" [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/unimas?cmpid=vnt:unimastv.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unimastelevision\.com" [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/unimas?cmpid=vnt:unimastelevision.com [R=301,L,NE,NC]
+#-------------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uvideos\.com" [NC]
+RewriteRule ^pabloescobar$     http://videos.univision.com/series/pablo-escobar  [R=301,L,NE,NC]
+RewriteRule ^demente$          http://novelasyseries.univision.com/shows/de-mente-criminal/  [R=301,L,NE,NC]
+RewriteRule ^lamalquerida$     http://novelasyseries.univision.com/shows/la-malquerida/ [R=301,L,NE,NC]
+RewriteRule ^hastaelfin$       http://novelasyseries.univision.com/shows/hasta-el-fin-del-mundo/ [R=301,L,NE,NC]
+RewriteRule ^bocadellobo$       http://novelasyseries.univision.com/shows/en-la-boca-del-lobo/ [R=301,L,NE,NC]
+RewriteRule ^micorazon$        http://videos.univision.com/novelas/mi-corazon-es-tuyo [R=301,L,NE,NC]
+RewriteRule ^elchivo$          http://novelasyseries.univision.com/shows/el-chivo/ [R=301,L,NE,NC]
+RewriteRule ^da$               http://videos.univision.com/programas/despierta-america [R=301,L,NE,NC]
+RewriteRule ^despiertaamerica$ http://videos.univision.com/programas/despierta-america [R=301,L,NE,NC]
+RewriteRule ^lagata$      http://videos.univision.com/generos/novelas/la-gata [R=301,L,NE,NC]
+RewriteRule ^([N-n]+)ovela(s)?([E-e])?([X-x]+)pres(s)?$      http://videos.univision.com/novelas/novelas-xpress [R=301,L,NE,NC]
+RewriteRule ^XpressNovelas$      http://videos.univision.com/novelas/novelas-xpress [R=301,L,NE,NC]
+RewriteRule ^ExpressNovelas$      http://videos.univision.com/novelas/novelas-xpress [R=301,L,NE,NC]
+RewriteRule ^tirodegracia$      http://videos.univision.com/series/tiro-de-gracia [R=301,L,NE,NC]
+RewriteRule ^esquinadeldiablo$      http://videos.univision.com/series/la-esquina-del-diablo [R=301,L,NE,NC]
+RewriteRule ^teperdonedios$      http://beta.uvideos.com/novelas/que-te-perdone-dios [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^juegosenlinea\.univision\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^bajarjuegos\.univision\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^juegos\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://univisionjuegos.miniclip.com/games/es/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionvideos\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:univisionvideos.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?youvideos\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:youvideos.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uvideos\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:uvideos.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^correo\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://www.univision.com/correo/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^betavideos\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^radio\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/radio [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionradio\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/radio?cmpid=vnt:univisionradio.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionradio\.net" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/radio?cmpid=vnt:univisionradio.net [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacallemusic\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lainvasora1077\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:lacallemusic.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1059\.fm" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:lakalle1059.com [R=301,L,NE,NC]
+
+#--- order is important since keyword based redirects must be processed first ----
+RewriteCond "%{HTTP_HOST}" "^(www\.)?premiosjuventud\.com" [NC]
+RewriteRule ^moda$   http://musica.univision.com/premiosjuventud/moda/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?premiosjuventud\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/shows/premios-juventud/?cmpid=vnt:premiosjuventud.com [R=301,L,NE,NC]
+#-------------------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionlatingrammy\.com" [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^futbolmls\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://mls.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?orbita1007\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo103\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos1075\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tejano1075\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusic\.net" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusica\.net" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusica\.org" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusicpublishing\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?viva935\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sol943\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionentretenimiento\.com" [NC]
+RewriteRule ^(.*)$   http://entretenimiento.univision.com/?cmpid=vnt:univisionentretenimiento.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?miraquienbaila\.com" [NC]
+RewriteRule ^(.*)$   http://entretenimiento.univision.com/mira-quien-baila?cmpid=vnt:miraquienbaila.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioncine\.com" [NC]
+RewriteRule ^(.*)$   http://cine.univision.com?cmpid=vnt:univisioncine.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?delicioso\.com" [NC]
+RewriteRule ^(.*)$   http://cocina.univision.com?cmpid=vnt:delicioso.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?simplydelicioso\.com" [NC]
+RewriteRule ^(.*)$   http://cocina.univision.com?cmpid=vnt:simplydelicioso.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univideos\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:univideos.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusica\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uforiamusica.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusic\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uforiamusic.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euforiamusica\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:euforiamusica.com [R=301,L,NE,NC]
+
+#--- order is important since keyword based redirects must be processed first ----
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicfestival\.com" [NC]
+RewriteRule ^chevron$   http://sitiostv.univision.com/chevron-uforia-la-es [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicfestival\.com" [NC]
+RewriteRule ^concierto$   http://sitiostv.univision.com/chevron-uforia-om-es [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicfestival\.com" [NC]
+RewriteRule ^concert$   http://sitiostv.univision.com/chevron-uforia-om-en [R=301,L,NE,NC]
+#---------------------------------------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euforiamusicfest\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euforiamusicseries\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicseries\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicfestival\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicfest\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiamusicafestival\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiafestival\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?h20concertseries\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?h2oconcertseries\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euphoriamusicseries\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euphoriamusicfest\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euphoriamusic\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euphoriamusica\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/shows/uforia-music-festival [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforiaradio\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uforiaradio.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uphoriamusica\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uphoriamusica.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?euphoriamusic\.com" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:euphoriamusic.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforia\.co" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uforia.co [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uforia\.us" [NC]
+RewriteRule ^(.*)$   http://musica.univision.com?cmpid=vnt:uforia.us [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?noticiasunivision\.com" [NC]
+RewriteRule ^diabetes$   http://noticias.univision.com/salud/elige-estar-bien/diabetes/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?noticiasunivision\.com" [NC]
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=vnt:noticiasunivision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?noticiasu\.com" [NC]
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=vnt:noticiasu.com [R=301,L,NE,NC]
+
+#--- order is important since keyword based redirects must be processed first ----
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?generacionamerica\.com" [NC]
+RewriteRule ^orgullosa     http://sitios.univision.com/generacion-america/orgullosa/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?generacionamerica\.com" [NC]
+RewriteRule ^(.*)$   http://sitios.univision.com/generacion-america?cmpid=vnt:generacionamerica.com [R=301,L,NE,NC]
+
+#---
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mexicansoccer\.com" [NC]
+RewriteRule ^(.*)$   http://futbol.univision.com/mexico?cmpid=vnt:mexicansoccer.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfutbol\.com" [NC]
+RewriteRule ^(.*)$   http://futbol.univision.com?cmpid=vnt:univisionfutbol.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?gigante\.com" [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/sabado-gigante/?cmpid=vnt:gigante.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnews\.com" [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/noticias/abc-news-univision?cmpid=vnt:univisionnews.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^la\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://univision34.univision.com/kmexupfront [R=301,L,NE,NC]
+
+
+#--- order is important since keyword based redirects must be processed first ----
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefa991\.com" [NC]
+RewriteRule ^(.*)$   http://lajefa991.univision.com?cmpid=vnt:lajefa991.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?republicadeportiva\.com" [NC]
+RewriteRule ^(.*)$   http://deportes.univision.com/republica-deportiva?cmpid=vnt:republicadeportiva.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?bellezaymoda\.com" [NC]
+RewriteRule ^(.*)$   http://bellezaymoda.univision.com?cmpid=vnt:univisionbellezaymoda.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uphiladelphia\.com" [NC,OR]  
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision65\.com" [NC]  
+RewriteRule ^(.*)$   http://univision65.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionphiladelphia\.com" [NC]  
+RewriteRule ^(.*)$   http://univision65.univision.com/?cmpid=univisionphiladelphia.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?philadelphia28\.com" [NC]  
+RewriteRule ^(.*)$   http://univision65.univision.com/?cmpid=philadelphia28.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?philadelphia65\.com" [NC]  
+RewriteRule ^(.*)$   http://univision65.univision.com/?cmpid=philadelphia65.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvp-tv\.com" [NC,OR]  
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvp\.tv" [NC,OR]  
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvp65\.com" [NC,OR]  
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wvix\.com" [NC]  
+RewriteRule ^(.*)$   http://univision65.univision.com/?cmpid=vnt:wuvp65.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079lakale\.com" [NC]  
+RewriteRule ^(.*)$   http://recuerdodallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1079\.com" [NC]  
+RewriteRule ^(.*)$   http://recuerdodallas.univision.com/ [R=301,L,NE,NC]
+
+#------------ order is important ----------------
+RewriteCond "%{HTTP_HOST}" "^(www\.)?novelasyseries\.com" [NC] 
+RewriteRule ^supermomentos$   http://novelasyseries.univision.com/super-momentos-de-novela/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?novelasyseries\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/ [R=301,L,NE,NC]
+
+#------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?novelayserie\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?novelayseries\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1003\.com" [NC] 
+RewriteRule ^(.*)$   http://1003masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "recuerdo1003.univision.com" [NC] 
+RewriteRule ^(.*)$   http://1003masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremenda1010\.com" [NC] 
+RewriteRule ^(.*)$   http://latremenda1010.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tremenda1010\.com" [NC] 
+RewriteRule ^(.*)$   http://latremenda1010.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionhaiti\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/america-latina/haiti [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanuevafm\.com" [NC] 
+RewriteRule ^(.*)$   http://lanueva1019.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?miami23\.com" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmiami\.com" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wltv23\.com" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wltv-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wltv\.tv" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/?cmpid=vnt:wltv.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kdtv14\.com" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kdtv\.tv" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/?cmpid=vnt:kdtv.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kdtv-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionsanfrancisco\.com" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionaustin\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionaustin.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^m\.laquebuena1043\.univision\.com" [NC] 
+#RewriteRule ^(.*)$   http://m.lajefaaustin.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?austin31\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionaustin.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kdas31\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionaustin.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?newyork41\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnewyork\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wxtv-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?labandaofficial\.co\.uk" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?labandaofficial\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?labandaoficial\.com" [NC] 
+RewriteRule ^(.*)$   http://www.univision.com/entretenimiento/la-banda [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioninsights\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^mediakit\.univision\.com"         [NC] 
+RewriteRule ^(.*)$   http://corporate.univision.com/advertise/portfolio/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?usanantonio\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kwex41\.com" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kwex\.tv" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/?cmpid=vnt:kwex.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?juntosdisfrutamos\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?juntosdisfrutamosmas\.com" [NC] 
+RewriteRule ^(.*)$   http://sitios.univision.com/juntosdisfrutamosmas [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kwex-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanantonio41\.com" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionlosangeles\.com" [NC] 
+RewriteRule ^(.*)$   http://losangeles.univision.com?cmpid=vnt:univisionlosangeles.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision34\.com" [NC] 
+RewriteRule ^(.*)$   http://losangeles.univision.com?cmpid=vnt:univision34.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision62\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionaustin.univision.com/?cmpid=vnt:univision62.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision41\.com" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionsanantonio\.com" [NC] 
+RewriteRule ^(.*)$   http://univision41.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?dallas49\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?houston67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfsf\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kstr\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftr\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfpa-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfpa28\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wftt-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wftt\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wftt50\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfty-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfut\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wotf-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wotf\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wutf-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuth-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wutf\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wotf43\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wutf66\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuth47\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wxft\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wxtv\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturapr\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/unimas/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfsf\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfsf66\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfsf-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfth\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfth67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfth-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfto\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfto67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kfto-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftr\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftr46\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftr-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?knic17\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kstr49\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kstr-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?losangeles46\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?miami69\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?newyork67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?newyork68\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanantonio17\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanantonio45\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanantonio67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanfrancisco66\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefutura\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturahouston\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturalosangeles\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturamiami\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturanewyork\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturasanantonio\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturasanfrancisco\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telefuturo\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wami69\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wami-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfty\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfty67\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfut68\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wfut-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/telefutura [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos983\.com" [NC] 
+RewriteRule ^(.*)$   http://recuerdo983.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?wamr\.com" [NC] 
+#RewriteRule ^(.*)$   http://amor1075fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wqba\.com" [NC] 
+RewriteRule ^(.*)$   http://wqba.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?waqi\.com" [NC] 
+RewriteRule ^(.*)$   http://radiomambi710.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?viva1057\.com" [NC] 
+RewriteRule ^(.*)$   http://lacallebayarea.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1019\.com" [NC] 
+RewriteRule ^(.*)$   http://lanueva1019.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremenda\.com" [NC] 
+RewriteRule ^(.*)$   http://latremenda1010.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionchicago\.com" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wgbo\.com" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wgbo66\.com" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wgbo-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wgbo\.tv" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com/?cmpid=vnt:wgbo.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amor993\.com" [NC] 
+RewriteRule ^(.*)$   http://993lasvegas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ktvw\.tv" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/?cmpid=vnt:ktvw.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuve52\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/?cmpid=vnt:kuve52.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ktvw\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiontucson\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ktvw33\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ktvw-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionphoenix\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision23\.com" [NC] 
+RewriteRule ^(.*)$   http://miami.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hottesthits1079\.com"  [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?myhot1079\.com"     [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hot1079dfw\.com"     [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079hothits\.com"     [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hothits1079\.com"     [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hotindfw\.com"     [NC] 
+RewriteRule ^(.*)$   http://gethotindfw.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?gethotindfw\.com"     [NC] 
+RewriteRule ^(.*)$   http://gethotindfw.univision.com?cmpid=vnt:gethotindfw.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ufresno\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?fresno21\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftv\.tv" [NC] 
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/?cmpid=vnt:kftv.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kftv21\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?knic-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfresno\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?usacramento\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision19\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvs\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvs19\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvs-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvs\.tv" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/?cmpid=vnt:kuvs.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sacramento19\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionsacramento\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionsacramento.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision14\.com" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?sanfrancisco14\.com" [NC] 
+RewriteRule ^(.*)$   http://univision14.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mambi710\.com" [NC] 
+RewriteRule ^(.*)$   http://radiomambi710.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radiomambi710\.com" [NC] 
+RewriteRule ^(.*)$   http://radiomambi710.univision.com/ [R=301,L,NE,NC]
+
+
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuenanewyork\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuenanewyork\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuenany\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena927\.com" [NC] 
+RewriteRule ^(.*)$   http://927laquebuena.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kcorfm\.com" [NC] 
+RewriteRule ^(.*)$   http://kcor1350.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?95xtumusica\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle951.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle95\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle951.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle951\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle951.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo951\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle951.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos951\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle951.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1075\.com" [NC] 
+#RewriteRule ^(.*)$   http://recuerdo1075.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?amor107\.com" [NC,OR] 
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?1075amor\.com" [NC] 
+#RewriteRule ^(.*)$   http://amor1075fm.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?amor1075fm\.com" [NC] 
+#RewriteRule ^(.*)$   http://amor1075fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1049tumusica\.com" [NC] 
+RewriteRule ^(.*)$   http://1049tumusica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacalleny\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mykalleny\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1059\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle927\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalleny\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?x963fm\.com" [NC] 
+RewriteRule ^(.*)$   http://x963fm.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mipagina\.us" [NC] 
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:mipagina.us [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mipaginaunivision\.com" [NC] 
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:mipaginaunivision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmipagina\.com" [NC] 
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:univisionmipagina.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amorcelestial\.com" [NC] 
+RewriteRule ^(.*)$   http://mipagina.univision.com/amorcelestial [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kq105\.com" [NC] 
+RewriteRule ^(.*)$   http://kq105.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremendachicago\.com" [NC] 
+RewriteRule ^(.*)$   http://latremendachicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?chicagolakalle\.com" [NC] 
+RewriteRule ^(.*)$   http://recuerdochicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wado1280am\.com" [NC] 
+RewriteRule ^(.*)$   http://wado1280am.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?927laquebuena\.com" [NC] 
+RewriteRule ^(.*)$   http://927laquebuena.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?luisjimenez\.com" [NC] 
+RewriteRule ^(.*)$   http://luisjimenez.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unuevayork\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnuevayork\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacallebayarea\.com" [NC] 
+RewriteRule ^(.*)$   http://lacallebayarea.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacallesf\.com" [NC] 
+RewriteRule ^(.*)$   http://lacallebayarea.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakallebayarea\.com" [NC] 
+RewriteRule ^(.*)$   http://lacallebayarea.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kcor1350\.com" [NC] 
+RewriteRule ^(.*)$   http://kcor1350.univision.com/ [R=301,L,NE,NC]
+
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tucson25\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tucson3\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tucson48\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tucson52\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionarizona\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondinero\.com" [NC] 
+RewriteRule ^(.*)$   http://dinero.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioncasa\.com" [NC] 
+RewriteRule ^(.*)$   http://casa.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionatl\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionatlanta\.com" [NC] 
+RewriteRule ^(.*)$   http://atlanta.univision.com/?cmpid=vnt:univisionatlanta.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvg\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvg\.tv" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvg-tv\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wuvg34\.com" [NC] 
+RewriteRule ^(.*)$   http://atlanta.univision.com/?cmpid=vnt:wuvg.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioncarolinadelnorte\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnorthcarolina\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnc\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionraleigh\.com" [NC] 
+RewriteRule ^(.*)$   http://northcarolina.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?klok1170\.com" [NC] 
+RewriteRule ^(.*)$   http://klok1170.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?jefa1013\.com" [NC] 
+#RewriteRule ^(.*)$   http://kjfa.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefa1013\.com" [NC] 
+#RewriteRule ^(.*)$   http://kjfa.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kqbt1017\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle1013.univision.com/?cmpid=vnt:kqbt1017.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1051\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle1013.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos1051\.com" [NC] 
+RewriteRule ^(.*)$   http://lakalle1013.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuena975\.com" [NC] 
+#RewriteRule ^(.*)$   http://kbna975.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?kbna975\.com" [NC] 
+#RewriteRule ^(.*)$   http://kbna975.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?kbnaradio\.com" [NC] 
+#RewriteRule ^(.*)$   http://kbna975.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos975\.com" [NC] 
+#RewriteRule ^(.*)$   http://kbna975.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?750kama\.com" [NC] 
+RewriteRule ^(.*)$   http://750kama.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kama750\.com" [NC] 
+RewriteRule ^(.*)$   http://750kama.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?queonda921\.com" [NC] 
+#RewriteRule ^(.*)$   http://queonda921.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1035\.com" [NC] 
+#RewriteRule ^(.*)$   http://lanueva1035.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo993\.com" [NC] 
+RewriteRule ^(.*)$   http://993lasvegas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos993\.com" [NC] 
+RewriteRule ^(.*)$   http://993lasvegas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1003masvariedad\.com" [NC] 
+RewriteRule ^(.*)$   http://1003masvariedad.univision.com/?cmpid=vnt:1003masvariedad.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo870\.com" [NC] 
+RewriteRule ^(.*)$   http://radiovariedades870.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdoam\.com" [NC] 
+RewriteRule ^(.*)$   http://radiovariedades870.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?kgbt\.com" [NC] 
+#RewriteRule ^(.*)$   http://kgbt985.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?kgbt985\.com" [NC] 
+#RewriteRule ^(.*)$   http://kgbt985.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremenda1530\.com" [NC] 
+RewriteRule ^(.*)$   http://latremenda1530.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?tremenda1530\.com" [NC] 
+RewriteRule ^(.*)$   http://latremenda1530.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1059\.com" [NC] 
+#RewriteRule ^(.*)$   http://lanueva1059.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1059\.com" [NC] 
+#RewriteRule ^(.*)$   http://lanueva1059.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1063\.com" [NC,OR] 
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?1063recuerdo\.com" [NC,OR] 
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdophoenix\.com" [NC] 
+#RewriteRule ^(.*)$   http://recuerdophoenix.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdosphoenix\.com" [NC] 
+#RewriteRule ^(.*)$   http://recuerdophoenix.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kaq105\.com" [NC] 
+RewriteRule ^(.*)$   http://kq105.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^gethotindfw\.univision\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^piolin\.univision\.com"   [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/radio [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www2\.)?univisiontarjeta\.com" [NC] 
+RewriteRule ^(.*)$   https://micuenta.univisiontarjeta.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wkaq580\.com" [NC] 
+RewriteRule ^(.*)$   http://wkaq580.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radioreloj580\.com" [NC] 
+RewriteRule ^(.*)$   http://wkaq580.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo941\.com" [NC] 
+RewriteRule ^(.*)$   http://lajefa991.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos941\.com" [NC] 
+RewriteRule ^(.*)$   http://lajefa991.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?netmio\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/radio/?cmpid=vnt:netmio.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?netmio\.net" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:netmio.net [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?galavision\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/galavision?cmpid=vnt:galavision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?premiolonuestro\.com"      [NC]
+RewriteRule ^fashionista   http://musica.univision.com/premio-lo-nuestro/fashionista [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?premiolonuestro\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/premio-lo-nuestro?cmpid=vnt:premiolonuestro.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?forolatino\.com" [NC] 
+RewriteRule ^(.*)$   http://foros.univision.com/foros/?cmpid=vnt:forolatino.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?primerlugar\.com" [NC] 
+RewriteRule ^(.*)$   http://deportes.univision.com/?cmpid=vnt:primerlugar.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusic\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:univisionmusic.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmusica\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:univisionmusica.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?notivision\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=notivision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?alminuto\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=vnt:alminuto.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lasnoticias\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=vnt:lasnoticias.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?rinconlatino\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/?cmpid=vnt:rinconlatino.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^telenovelas\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telenovelasinternet\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/?cmpid=vnt:telenovelasinternet.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?telenovelas-internet\.com" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/?cmpid=vnt:telenovelas-internet.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionchile\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/america-latina/chile?cmpid=vnt:univisionchile.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?objetivofama\.com" [NC] 
+RewriteRule ^(.*)$   http://puertorico.univision.com/?cmpid=vnt:objetivofama.com [R=301,L,NE,NC]
+
+#--------------------------------------------------------------------
+#--- order is important since keyword based redirects must be processed first ----
+#--------------------------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^(s|S)+orprendelas  http://bellezaymoda.univision.com/shows/nuestra-belleza-latina/sorprendelas/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^sonrisa  http://bellezaymoda.univision.com/nuestra-belleza-latina/sonrisa/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^talento  http://bellezaymoda.univision.com/nuestra-belleza-latina/talento-sin-limites/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^vota  http://bellezaymoda.univision.com/shows/nuestra-belleza-latina/vota/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^fansdebelleza  http://bellezaymoda.univision.com/shows/nuestra-belleza-latina/fans-de-belleza/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC]
+RewriteRule ^juego  http://bellezaymoda.univision.com/nuestra-belleza-latina/fantasy-game/?cmpid=vnt:nbl.com.juego [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nuestrabellezalatina\.com" [NC] 
+RewriteRule ^(.*)$   http://uvideos.com/shows/nuestra-belleza-latina [R=301,L,NE,NC]
+
+#------------------------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioncocina\.com" [NC] 
+RewriteRule ^(.*)$   http://cocina.univision.com/?cmpid=vnt:univisioncocina.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionsalud\.com" [NC] 
+RewriteRule ^(.*)$   http://salud.univision.com/es/?cmpid=vnt:univisionsalud.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionjuegos\.com" [NC] 
+RewriteRule ^(.*)$   http://videojuegos.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionamor\.com" [NC] 
+RewriteRule ^(.*)$   http://match.univision.com/channel/index.aspx [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmqb\.com" [NC] 
+RewriteRule ^(.*)$   http://entretenimiento.univision.com/mira-quien-baila?cmpid=vnt:univisionmqb.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondelicioso\.com" [NC] 
+RewriteRule ^(.*)$   http://cocina.univision.com?cmpid=vnt:univisiondelicioso.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionbellezaymoda\.com" [NC] 
+RewriteRule ^(.*)$   http://bellezaymoda.univision.com/?cmpid=vnt:univisionbellezaymoda.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmexico\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/mexico [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?instudio\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/instudio/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisioninstudio\.com" [NC] 
+RewriteRule ^(.*)$   http://musica.univision.com/instudio/ [R=301,L,NE,NC]
+
+#--- order is important since keyword based redirects must be processed first ----
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnoticias\.com" [NC] 
+RewriteRule ^hepatitis(c)?$   http://noticias.univision.com/salud/hepatitis-c [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnoticias\.com" [NC] 
+RewriteRule ^salud$   http://noticias.univision.com/salud [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnoticias\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/?cmpid=vnt:univisionnoticias.com [R=301,L,NE,NC]
+
+#--- order is important since keyword based redirects must be processed first ----
+
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionhoroscopos\.com" [NC] 
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/horoscopos/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?evaluna\.tv" [NC] 
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/eva-luna [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?luchalibre\.com" [NC] 
+RewriteRule ^(.*)$   http://foro.univision.com/t5/Lucha-Libre/bd-p/luchalibre [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionoticias\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfamilia\.com" [NC] 
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionvidayfamilia\.com" [NC] 
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiontv\.com" [NC] 
+RewriteRule ^(.*)$   http://tv.univision.com/univision [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radiowado\.com" [NC] 
+RewriteRule ^(.*)$   http://wado1280am.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?mami927\.com" [NC] 
+#RewriteRule ^(.*)$   http://mami927.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amorcelestial\.com" [NC] 
+RewriteRule ^(.*)$   http://amorcelestial.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?debatelatino\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/debate-latino/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?pasion1067\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?pasionchicago\.com" [NC] 
+RewriteRule ^(.*)$   http://pasionchicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdodallas\.com" [NC]
+RewriteRule ^(.*)$   http://recuerdodallas.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1071\.com" [NC]
+RewriteRule ^(.*)$   http://recuerdodallas.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiontlnovelas\.com" [NC]
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/tlnovelas/?cmpid=vnt:univisiontlnovelas.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?primerimpacto\.com" [NC]
+RewriteRule ^(.*)$   http://noticias.univision.com/primer-impacto?cmpid=vnt:primerimpacto.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?elgordoylaflaca\.com" [NC]
+RewriteRule ^(.*)$   http://entretenimiento.univision.com/el-gordo-y-la-flaca?cmpid=vnt:elgordoylaflaca.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?eselmomento\.com" [NC]
+RewriteRule ^universidades  http://youvisit.univision.com/univision.php [R=301,L]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?eselmomento\.com" [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/es-el-momento [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^comparaprecios\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://comparaprecio.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionfresno\.com" [NC]
+RewriteRule ^(.*)$  http://univisionfresno.univision.com/copa-univision-fresno/copa-univision-fresno-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionsanfrancisco\.com" [NC]
+RewriteRule ^(.*)$  http://univision14.univision.com/copa-univision-sf/copa-univision-san-francisco-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionla\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionlosangeles\.com" [NC]
+RewriteRule ^(.*)$  http://losangeles.univision.com/deportes/copa-univision [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?uvn34\.com" [NC]
+RewriteRule ^(.*)$  http://losangeles.univision.com/?cmpid=vnt:uvn34.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionny\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionnewyork\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionnuevayork\.com" [NC]
+RewriteRule ^(.*)$  http://univisionnuevayork.univision.com/copa-univision-ny/copa-univision-nueva-york-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionsa\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionsanantonio\.com" [NC]
+RewriteRule ^(.*)$  http://univision41.univision.com/deportes/copa-univision/copa-univision-2012   [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionaustin\.com" [NC]
+RewriteRule ^(.*)$   http://univisionaustin.univision.com/deportes/copa-univision-austin-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionmiami\.com" [NC]
+RewriteRule ^(.*)$   http://univision23.univision.com/deportes/article/2012-05-07/copa-fiesta-cup-hialeah-miami-univision-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?liberatuvoz\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?yaregistrate\.com" [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/destino-2012/ya-es-hora [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^youvisit\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://www.youvisit.com/univision.php [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^iphone\.kq105\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^iphone\.wkaq580\.com" [NC]
+RewriteRule ^(.*)$   http://itunes.apple.com/us/app/univision-radio/id451268300 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^blackberry\.kq105\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^blackberry\.wkaq580\.com" [NC]
+RewriteRule ^(.*)$   http://www.iheartradio.com/cc-common/radio_app/index.html?tabs=blackberry [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^android\.kq105\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^android\.wkaq580\.com" [NC]
+RewriteRule ^(.*)$   https://play.google.com/store/apps/details?id=com.airkast.univision&feature=search_result [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?aranquedepasion\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?arranquedepasion\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?arranquedepassion\.com" [NC]
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/arranque-de-pasion/?cmpid=vnt:arranquedepasion.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?arranquedepasioncapitulos\.com" [NC]
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/arranque-de-pasion/?cmpid=vnt:arranquedepasioncapitulos.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^advertise\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://corporate.univision.com/media-kit/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mqbclips\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.entretenimiento.univision.com/mira-quien-baila/clips-mira-quien-baila/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?unimas\.tv" [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/unimas?cmpid=vnt:unimas.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionny\.com" [NC]
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/?cmpid=vnt:univisionny.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiony\.com" [NC]
+RewriteRule ^(.*)$   http://univisionnuevayork.univision.com/?cmpid=vnt:univisiony.com [R=301,L,NE,NC]
+
+# ---------------- mobi redirects ----------------------
+RewriteCond "%{HTTP_HOST}" "^www\.univision\.mobi" [NC]
+RewriteCond "%{QUERY_STRING}" "^pid=3227$" [NC]
+RewriteRule ^Politica-Privacidad.html http://m.www.univision.com/tandc/PRIVACIDAD [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.univision\.mobi" [NC]
+RewriteCond "%{QUERY_STRING}" "^pid=2967$" [NC]
+RewriteRule ^Terminos-de-Uso.html http://m.www.univision.com/tandc/termofuse [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.univision\.mobi" [NC]
+RewriteCond "%{QUERY_STRING}" "^pid=5548$" [NC]
+RewriteRule ^EULA.html http://m.www.univision.com/tandc/eula [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmovil\.com" [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^futbol\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.futbol.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^autos\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.autos.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^bellezaymoda\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.bellezaymoda.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^casa\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.casa.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^deportes\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.deportes.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^dinero\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.dinero.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^entretenimiento\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.entretenimiento.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^feeds\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.feeds.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^juegos\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.videojuegos.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^horoscopos\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.vidayfamilia.univision.com/horoscopos/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kbna975\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.kbna975.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kgbt985\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.kgbt985.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kjfa\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.kjfa.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kq105\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.kq105.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^lanueva1035\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.lanueva1035.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^musica\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^lyrcis\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.musica.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^nfl\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.nfl.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^nfllatino\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^nflespanol\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.nfl.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^noticias\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.noticias.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^novelasyseries\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.novelasyseries.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^tv\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^television\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.tv.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univision14\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univision14.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univision23\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.miami.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univision41\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univision41.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univision65\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univision65.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionarizona\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionarizona.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionatlanta\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^atlanta\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.atlanta.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionaustin\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionaustin.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionchicago\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.chicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionfresno\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionfresno.univision.com [R=301,L,NE,NC]
+
+
+
+RewriteCond "%{HTTP_HOST}" "^univisionlosangeles\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionlosangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionnuevayork\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionnuevayork.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionsacramento\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.univisionsacramento.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^vidayfamilia\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.vidayfamilia.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^1020am\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1020am.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^1049tumusica\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1049tumusica.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^750kama\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.750kama.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^927laquebuena\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.927laquebuena.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^amor1075fm\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.927laquebuena.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^amorcelestial\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.amorcelestial.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^cine\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.cine.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^cocina\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.cocina.univision.com [R=301,L,NE,NC]
+
+
+RewriteCond "%{HTTP_HOST}" "^iloveklove\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.iloveklove.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kcor1350\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.kcor1350.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lajefa991\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lajefa991.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1013\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lakalle1013.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle951\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lakalle951.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakallelasvegas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.993lasvegas.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1019\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lanueva1019.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^lanueva1059\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.lanueva1059.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^laquebuena1043\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.lajefaaustin.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latinomix1057\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.latinomix1057.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremenda1010\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.latremenda1010.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremenda1530\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.latremenda1530.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremendachicago\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.latremendachicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lavoz1270\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lavoz1270.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^luisjimenez\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.luisjimenez.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1013\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^m\.lakalle1013\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://m.yo1013.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^pasionchicago\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.pasionchicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.piolin\.univision\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^piolin\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.musica.univision.com/radio [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^queonda921\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.queonda921.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^radiomambi710\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.radiomambi710.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^radiovariedades870\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.radiovariedades870.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^raulbrindis\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.raulbrindis.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1003\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.recuerdo1003.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^recuerdo1075\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.recuerdo1075.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^recuerdo961\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.recuerdo961.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo983\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.recuerdo983.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdodallas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.recuerdodallas.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^recuerdophoenix\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.recuerdophoenix.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wado1280am\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.wado1280am.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wkaq580\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.wkaq580.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wqba\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.wqba.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^x963fm\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.x963fm.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^news\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.news.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^videojuegos\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.videojuegos.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sitios\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.sitios.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^premiostvynovelas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.novelasyseries.univision.com/premios-tv-y-novelas [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^futbolev\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.futbol.univision.com/univision-soccer [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^copaamerica\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.futbol.univision.com/copa-america [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^eselmomento\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.vidayfamilia.univision.com/es-el-momento/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^copaoro\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.futbol.univision.com/copa-oro [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mujer\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^descargas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^entuciudad\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com/citySelection [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^fmf\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.futbol.univision.com/seleccion-nacional/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lomejorpj\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.musica.univision.com/premios-juventud/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mia\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mujeresasesinas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.novelasyseries.univision.com/mujeres-asesinas-2 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^nomehallo\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.novelasyseries.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^pj\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.musica.univision.com/premios-juventud/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^tecnologia\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.noticias.univision.com/tecnologia [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ves\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.tv.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^vida\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.vidayfamilia.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^webnovela\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.novelasyseries.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisionlosangeles\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.losangeles\.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdodallas\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.gethotindfw.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.videojuegos\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://www.mocospace.com/wap/partners/univision/?id=games [R=301,L,NE,NC]
+
+# --------------------- end of mobi redirects ------------------
+#---------------------- dallas station switch ------------------
+RewriteCond "%{HTTP_HOST}" "^radioh2odallas\.univision\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radioh2odallas\.com"  [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radioh20\.com"    [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radioh20dfw\.com"    [NC] 
+RewriteRule ^(.*)$   http://gethotindfw.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radioh20dallas\.com" [NC] 
+RewriteRule ^(.*)$   http://gethotindfw.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdodallas\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://www.univision.com/ [R=301,L,NE,NC]
+
+#---------------------- univisionamerica switch ------------------
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionamerica\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:univisionamerica.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wqba\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wqba\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremendachicago\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremendachicago\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremenda1010\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremenda1010\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lavoz1270\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lavoz1270\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kcor1350\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kcor1350\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latremenda1530\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremenda1530\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?750kama\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^750kama\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?radiovariedades\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^radiovariedades\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1020am\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^1020am\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/ [R=301,L,NE,NC]
+
+#--- Begin Deactivated sites ----
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisionatlanta\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.atlanta.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univision34\.univision\.com"    [NC] 
+RewriteRule ^(.*)$   http://m.losangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univision23\.univision\.com"    [NC] 
+RewriteRule ^(.*)$   http://m.univision23.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisionnuevayork\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.nuevayork.univision.com [R=301,L,NE,NC]
+
+#--- End Deactivated sites --- 
+
+#--- order is important since keyword based redirects must be processed first ----
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpr\.com" [NC]
+RewriteRule ^tumanana         http://puertorico.univision.com/shows-de-tv/tu-manana [R=301,L,NE,NC]
+RewriteRule ^chefpineiro      http://puertorico.univision.com/shows-de-tv/chef-pineiro [R=301,L,NE,NC]
+RewriteRule ^lahoradelchavo   http://puertorico.univision.com/shows-de-tv/la-hora-del-chavo [R=301,L,NE,NC]
+RewriteRule ^atencionatencion http://puertorico.univision.com/shows-de-tv/atencion-atencion [R=301,L,NE,NC]
+RewriteRule ^lasnoticias      http://puertorico.univision.com/ultima-hora [R=301,L,NE,NC]
+RewriteRule ^junte       http://puertorico.univision.com/destino-2012 [R=301,L,NE,NC]
+RewriteRule ^encuesta1   http://puertorico.univision.com/destino-2012/tu-opinion/poll/2012-08-01/junte-constitucional-encuesta-1 [R=301,L,NE,NC]
+RewriteRule ^encuesta2   http://puertorico.univision.com/destino-2012/tu-opinion/poll/2012-08-01/junte-constitucional-encuesta-2 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univision\.centennialpr\.net" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpuertorico\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpr\.com" [NC]
+RewriteRule ^(.*)$   http://puertorico.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?la1059\.com" [NC]
+#RewriteRule ^(.*)$   http://lanueva1059.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?la1035\.com" [NC]
+#RewriteRule ^(.*)$   http://lanueva1035.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionnuevayork\.com" [NC]
+RewriteRule ^(.*)$   http://nuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisionchicago\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.chicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionchicago\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://chicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionchicago\.com" [NC]
+RewriteRule ^(.*)$   http://chicago.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^laquebuena1043\.univision\.com" [NC]
+#RewriteRule ^(.*)$   http://lajefaaustin.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena1043\.com" [NC] 
+#RewriteRule ^(.*)$   http://lajefaaustin.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefaaustin\.com" [NC] 
+#RewriteRule ^(.*)$   http://lajefaaustin.univision.com/ [R=301,L,NE,NC]
+
+#--------------------- Dallas redirects -----------------------------
+RewriteCond "%{HTTP_HOST}" "^univisiondallas\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.dallas.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kick991\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondfw\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvn\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvn\.tv" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/?cmpid=vnt:kuvn.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvn-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?dallas23\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kuvn23\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisiondallas\.com" [NC]
+RewriteRule ^(.*)$   http://dallas.univision.com/deportes/copa-univision-dallas-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondallas\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondallas\.com" [NC] 
+RewriteRule ^(.*)$   http://dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisiondallas\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.dallas.univision.com [R=301,L,NE,NC]
+
+
+
+#--------------------- Houston redirects -----------------------------
+RewriteCond "%{HTTP_HOST}" "^ufertas\.univision\.com" [NC]  
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kxln-tv\.com" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kxln\.tv" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/?cmpid=vnt:kxln.tv [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?copaunivisionhouston\.com" [NC]
+RewriteRule ^(.*)$   http://houston.univision.com/deportes/copa-univision-houston-2012 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision45\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kxln45\.com" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionhouston\.com" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univision45\.com" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionhouston\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.houston.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionhouston\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://houston.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.univisionhouston\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.houston.univision.com/ [R=301,L,NE,NC]
+
+#----------------------- Anything before the last --by Faisal----------
+RewriteCond "%{HTTP_HOST}" "^horoscopos\.univision\.com"       [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/horoscopos/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionmovil\.com"       [NC]
+RewriteRule ^(.*)$   http://m.www.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisionmusic\.com"       [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^youvisit\.univision\.com"       [NC]
+RewriteRule ^(.*)$   http://www.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^rsi\.univision\.com"       [NC]
+RewriteRule ^(.*)$   http://www.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.foros\.univision\.com"       [NC]
+RewriteRule ^(.*)$   http://foro.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.noticias\.univision\.com"  [NC] 
+RewriteRule ^(.*)$   http://noticias.univision.com/$1      [R=301,L,NE,NC]
+
+#----------------------- From Legacy Server --------------------
+
+#RewriteCond "%{HTTP_HOST}" "^albuquerque\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kjfa.univision.com/?cmpid=vnt:albuquerque.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ati\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:ati.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^austin\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionaustin.univision.com?cmpid=vnt:austin.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^auto\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://autos.univision.com/?cmpid=vnt:auto.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^bajamusica\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:bajamusica.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^bajarmusica\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:bajarmusica.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^bajazune\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:bajazune.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^barra\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:barra.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.barra\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:www.barra.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^chat\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/amigos/?cmpid=vnt:chat.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^comidamex\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:comidamex.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.compras\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/comprar?cmpid=vnt:www.compras.univision.com   [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^coyote1025\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kjfa.univision.com/?cmpid=vnt:coyote1025.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^cristina\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:cristina.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.deportes\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://deportes.univision.com/?cmpid=vnt:www.deportes.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^deportes2\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://deportes.univision.com/?cmpid=vnt:deportes2.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^elpaso\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kbna975.univision.com/?cmpid=vnt:elpaso.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^eonstreams\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:eonstreams.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.eonstreams\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:www.eonstreams.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^fantasia\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:fantasia.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^foros1\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:foros1.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^forosfutbol\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:forosfutbol.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^forospaginau\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:forospaginau.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^forosreligion\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:forosreligion.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^fresno\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionfresno.univision.com/?cmpid=vnt:fresno.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^futbolmexicano\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://futbol.univision.com/mexico?cmpid=vnt:futbolmexicano.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^galavision\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/galavision/?cmpid=vnt:galavision.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^grammylatino\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.grammylatino\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy   [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^horizon1051\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kjfa.univision.com/?cmpid=vnt:horizon1051.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^infopop\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foros.univision.com/foros?cmpid=vnt:infopop.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kama\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:kama.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kbbt\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lakalle951.univision.com/?cmpid=vnt:kbbt.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kbna\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kbna975.univision.com/?cmpid=vnt:kbna.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kbtq\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://recuerdo961.univision.com/?cmpid=vnt:kbtq.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kcor-fm\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lakalle951.univision.com/?cmpid=vnt:kcor-fm.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kgbt-am\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:kgbt-am.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kgbt-fm\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kgbt985.univision.com/?cmpid=vnt:kgbt-fm.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kgbt\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kgbt985.univision.com/?cmpid=vnt:kgbt.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^khck\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://dallas.univision.com/?cmpid=vnt:khck.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^khot\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://lanueva1059.univision.com/?cmpid=vnt:khot.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kisf\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://lanueva1035.univision.com/?cmpid=vnt:kisf.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kiss973\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lakalle1013.univision.com/?cmpid=vnt:kiss973.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klat\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:klat.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klsq\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:klsq.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klve\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://iloveklove.univision.com/?cmpid=vnt:klve.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^kmrr\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://recuerdophoenix.univision.com/?cmpid=vnt:kmrr.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kqbu\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1049tumusica.univision.com/?cmpid=vnt:kqbu.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kqmr\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://993lasvegas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^krcd\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://recuerdo983.univision.com/?cmpid=vnt:krcd.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^krtx-am\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:krtx-am.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ktnq\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:ktnq.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^lajefa1013\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kjfa.univision.com/?cmpid=vnt:lajefa1013.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^lasvegas\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://lanueva1035.univision.com/?cmpid=vnt:lasvegas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latingrammy\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.latingrammy\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latingrammys\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.latingrammys\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://uvideos.com/especiales/latin-grammy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^latremenda\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionamerica.univision.com/?cmpid=vnt:latremenda.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^luchalibre\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://foro.univision.com/t5/Lucha-Libre/bd-p/luchalibre?cmpid=vnt:luchalibre.univision.com   [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^mcallen\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://kgbt985.univision.com/?cmpid=vnt:mcallen.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mensajero\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:mensajero.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mujer\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/?cmpid=vnt:mujer.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\musica\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:www.musica.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^musicaymas\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:musicaymas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^netmio\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:netmio.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^newyork\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://nuevayork.univision.com/?cmpid=vnt:newyork.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ns\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:ns.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^orbita1007\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://houston.univision.com/?cmpid=vnt:orbita1007.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^paginau\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:paginau.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^paz\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:paz.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.paz\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:www.paz.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^pazsinfronteras\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:pazsinfronteras.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^phoenix\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univisionarizona.univision.com/?cmpid=vnt:phoenix.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^premiolonuestro\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/premio-lo-nuestro?cmpid=vnt:premiolonuestro.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^raulypepito\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://raulbrindis.univision.com/?cmpid=vnt:raulypepito.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^reg\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:reg.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sanantonio\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univision41.univision.com/?cmpid=vnt:sanantonio.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sanfrancisco\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univision14.univision.com/?cmpid=vnt:sanfrancisco.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^servicios\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:servicios.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sf\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://univision14.univision.com/?cmpid=vnt:sf.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^stats\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://deportes.univision.com/?cmpid=vnt:stats.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^telefutura\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://tv.univision.com/unimas/?cmpid=vnt:telefutura.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.tienda\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/comprar?cmpid=vnt:www.tienda.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.tiendafutbol\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://tiendafutbol.univision.com/?cmpid=vnt:www.tiendafutbol.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^toolbar\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:toolbar.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.toolbar\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:www.toolbar.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^travel\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:travel.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^univisiontv\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:univisiontv.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^viajes\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:viajes.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^vida\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://vidayfamilia.univision.com/?cmpid=vnt:vida.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^vidascruzadas\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/vidas-cruzadas-2009?cmpid=vnt:vidascruzadas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.vidascruzadas\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://novelasyseries.univision.com/vidas-cruzadas-2009?cmpid=vnt:www.vidascruzadas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^video\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:video.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.video\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://videos.univision.com/?cmpid=vnt:www.video.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^viva1017\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lakalle1013.univision.com/?cmpid=vnt:viva1017.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^vivaelsueno\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:vivaelsueno.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.vivaelsueno\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:www.vivaelsueno.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wado\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://wado1280am.univision.com/?cmpid=vnt:wado.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^wamr\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://amor1075fm.univision.com/?cmpid=vnt:wamr.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wap\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:wap.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^waqi\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://radiomambi710.univision.com/?cmpid=vnt:waqi.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wcaa\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://wado1280am.univision.com/?cmpid=vnt:wcaa.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wviv\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://pasionchicago.univision.com/?cmpid=vnt:wviv.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ww\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://www.univision.com/?cmpid=vnt:ww.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^zune\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:zune.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^www\.zune\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/?cmpid=vnt:www.zune.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estadio\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://estadiodetodos.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?vaporti\.com"  [NC]
+RewriteRule ^(.*)$   http://musica.univision.com/va-por-ti/  [R=301,L,NE,NC]
+
+# buenomalafeo site
+RewriteCond "%{HTTP_HOST}" "^(www\.)?buen(o|a)+mal(o|a)+(y)?feo\.com"       [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?bmfshow\.com"       [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?elbmfshow\.com"       [NC]
+RewriteRule ^(.*)$   http://buenomalafeo.univision.com/ [R=301,L,NE,NC]
+
+# latinomixsf
+
+RewriteCond "%{HTTP_HOST}" "^latinomixsf\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latinomixsf\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hot1057fm\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hot1007fm\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latinomixfm\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?latinomixsf\.com"  [NC]
+RewriteRule ^(.*)$   http://hot1057fm.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.latinomixsf\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.hot1057fm.univision.com/ [R=301,L,NE,NC]
+
+# yo1013 
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1013\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://yo1013.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1013\.com"  [NC]
+RewriteRule ^(.*)$   http://yo1013.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?yo1013\.com"  [NC]
+RewriteRule ^(.*)$   http://yo1013.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1013\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://yo013.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.lakalle1013\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.yo013.univision.com/ [R=301,L,NE,NC]
+
+# amor1067
+
+RewriteCond "%{HTTP_HOST}" "^pasionchicago\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://amor1067.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?pasionchicago\.com"  [NC]
+RewriteRule ^(.*)$   http://amor1067.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?pasion1067\.com"  [NC]
+RewriteRule ^(.*)$   http://amor1067.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?passion1067\.com"  [NC]
+RewriteRule ^(.*)$   http://amor1067.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amor1067\.com"  [NC]
+RewriteRule ^(.*)$   http://amor1067.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.pasionchicago\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.amor1067.univision.com/ [R=301,L,NE,NC]
+
+# KRGT
+
+RewriteCond "%{HTTP_HOST}" "^lakallelasvegas\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakallelasvegas\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?993lasvegas\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle993fm\.com"  [NC]
+RewriteRule ^(.*)$   http://993lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.lakallelasvegas\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://m.993lasvegas.univision.com/  [R=301,L,NE,NC]
+
+# KLLE
+
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079lakalle\.com"  [NC]
+RewriteRule ^(.*)$   http://1079fresno.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalledfw\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle991\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079kzol\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^kzol\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^kllefm1079\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kllefm1079\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079fresno\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacalle1079\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1079\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lacallefresno\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakallefresno\.com"  [NC]
+RewriteRule ^(.*)$   http://1079fresno.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.kllefm1079\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^m\.lakalle1079\.univision\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^lakalle1079\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1079fresno.univision.com [R=301,L,NE,NC]
+
+# KQMR
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1053\.com" [NC]
+RewriteRule ^(.*)$   http://1003phoenix.univision.com/?cmpid=vnt:lakalle1053.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1003\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle1003\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1003phoenix\.com"  [NC]
+RewriteRule ^(.*)$   http://1003phoenix.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lakalle1003\.univision\.mobi" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^m\.lakalle1003\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.1003phoenix.univision.com [R=301,L,NE,NC]
+
+# KDXX
+
+RewriteCond "%{HTTP_HOST}" "^maximadallas\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?maximadallas\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?991dallas\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle991\.com"  [NC]
+RewriteRule ^(.*)$   http://991dallas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.maximadallas\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://m.991dallas.univision.com  [R=301,L,NE,NC]
+
+# KGSX
+
+RewriteCond "%{HTTP_HOST}" "^lakalle951\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle951\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?951sanantonio\.com"  [NC]
+RewriteRule ^(.*)$   http://951sanantonio.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.lakalle951\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://m.951sanantonio.univision.com  [R=301,L,NE,NC]
+
+# WVIV
+
+RewriteCond "%{HTTP_HOST}" "^wind\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://maximamusica.univision.com/?cmpid=vnt:wind.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^maximamusica\.univision\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?maximamusica\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?935chicago\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1031chicago\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?maxima1031\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?maxima935\.com"  [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?yosoyla(c|k)+alle\.com" [NC]
+RewriteRule ^(.*)$   http://935chicago.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.maximamusica\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://m.935chicago.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^maximamusica\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.maximamusica.univision.com [R=301,L,NE,NC]
+
+# UnivisionDeportes - order is important
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^HOUvORL$   http://deportesenvivo.univision.com/game/orlando-city-at-h-dynamo-on-20150313  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^NarraTuPartido$   http://futbol.univision.com/mexico/narra-tu-partido/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^[Vv][Ee][Rr][Ii][Zz][Oo][Nn]$   http://futbol.univision.com/mexico/lo-mejor-por-el-fanatico-clausura-2013/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^expediente(s)?$   http://deportes.univision.com/expediente/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^(el)?momento(clave)?$   http://futbol.univision.com/fifa-copa-mundial/el-momento-clave/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^(lomas)?impactante$   http://futbol.univision.com/fifa-copa-mundial/lo-mas-impactante/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^frente(a)?frente$   http://futbol.univision.com/fifa-copa-mundial/frente-a-frente/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^(gran)?pase$   http://futbol.univision.com/fifa-copa-mundial/ball-around-the-world/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^celebrando(enbrasil)?$   http://futbol.univision.com/fifa-copa-mundial/celebra-brasil/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^sueno(mexicano)?$   http://futbol.univision.com/fifa-copa-mundial/el-sueno-mexicano/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^conexion(mundial)?$   http://futbol.univision.com/fifa-copa-mundial/abc-del-mundial/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^tiempoextra(s)?$   http://futbol.univision.com/fifa-copa-mundial/tiempo-extra/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^elmejor$   http://especiales.futbol.univision.com/elige-al-mejor/mundial/inicio  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^lomejor(delmundial)?$   http://futbol.univision.com/fifa-copa-mundial/mejor-del-mundial/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^elige(almejor)?$   http://futbol.univision.com/fifa-copa-mundial/elige-al-mejor/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^matchcenter$   http://deportesenvivo.univision.com/schedule?day=current_date&lid=mundial  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^comunidad(brasil)?$   http://futbol.univision.com/fifa-copa-mundial/comunidad-brasil/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^seleccion$   http://especiales.futbol.univision.com/quiniela/juega  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^camino(alestadio)?$   http://futbol.univision.com/fifa-copa-mundial/camino-al-estadio/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^por(el)?futbol$   http://futbol.univision.com/fifa-copa-mundial/porelfutbol/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^shortplays$   http://futbol.univision.com/fifa-copa-mundial/short-plays/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^redes$   http://futbol.univision.com/fifa-copa-mundial/redes-al-momento  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^acceso$  http://beta.univision.com/deportes-app-esp-new  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^access$  http://beta.univision.com/deportes-app-eng-new  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^accesso$  http://futbol.univision.com/deportes-app-splash  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^acesso$  http://futbol.univision.com/deportes-app-splash  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^aceso$  http://futbol.univision.com/deportes-app-splash  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^PremiosUD$  http://deportes.univision.com/shows/premios-deportes/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^PremioMalasuerte$  http://deportes.univision.com/shows/premios-deportes/votacion/mala/   [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^PremioGol$  http://deportes.univision.com/shows/premios-deportes/votacion/gol-del-ano/    [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^MomentoSonic$  http://deportes.univision.com/videos/jugadas-de-la-semana/    [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^fantasy$  http://ligamx.univision.com/es/deportes/fantasy    [R=301,L,NE,NC]
+RewriteRule ^fantasia$  http://ligamx.univision.com/es/deportes/fantasy    [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^ElEquipo13$   http://futbol.univision.com/copa-oro/el-equipo-13/    [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^JugadorEspecial$   http://futbol.univision.com/copa-oro/jugador-especial/    [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC]
+RewriteRule ^copaoro$   http://futbol.univision.com/copa-oro/    [R=301,L,NE,NC]
+
+# for univisiondeportes.com this should be the last in the group
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisiondeportes\.com" [NC] 
+RewriteRule ^(.*)$   http://deportes.univision.com [R=301,L,NE,NC]
+
+#-------------------------------
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estadiounivision\.com" [NC] 
+RewriteRule ^(.*)$   http://estadio.univision.com [R=301,L,NE,NC]
+
+# recuerdo983 switch to masvariedadia
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo983\.com" [NC] 
+RewriteRule ^(.*)$   http://masvariedadla.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?masvariedadla\.com" [NC] 
+RewriteRule ^(.*)$   http://masvariedadla.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo983\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://masvariedadla.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdo983\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.masvariedadla.univision.com [R=301,L,NE,NC]
+
+# recuerdo1065 switch to 1065masvariedad
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1065\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1065masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kove\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1065masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1065\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://1065masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1065\.com" [NC] 
+RewriteRule ^(.*)$   http://1065masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1065masvariedad\.com" [NC] 
+RewriteRule ^(.*)$   http://1065masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdo1065\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1065masvariedad.univision.com [R=301,L,NE,NC]
+
+# elsanchoaustin switch to 1077masvarieded
+
+RewriteCond "%{HTTP_HOST}" "^lainvasora1077\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lajefa1077\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefa1077\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1077hitsfm\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.lajefa1077\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1077masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo(s)?1077\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lajefa1077\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1077masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^elsanchoaustin\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?elsanchoaustin\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1077masvariedad\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1077lajefa\.com" [NC] 
+RewriteRule ^(.*)$   http://1077masvariedad.univision.com [R=301,L,NE,NC]
+
+# KSCA switch
+RewriteCond "%{HTTP_HOST}" "^ksca\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1019losangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?la1019\.com" [NC]
+RewriteRule ^(.*)$   http://1019losangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1019losangeles\.com" [NC]
+RewriteRule ^(.*)$   http://1019losangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?bonchederolas\.com" [NC] 
+RewriteRule ^(.*)$   http://1019losangeles.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^la1019\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://1019losangeles.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.la1019\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.1019losangeles.univision.com [R=301,L,NE,NC]
+
+# KLTN switch
+
+#RewriteCond "%{HTTP_HOST}" "^kltn\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://1029houston.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^estereolatino\.univision\.com"  [NC]
+#RewriteRule ^(.*)$   http://1029houston.univision.com  [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^estereolatino1029\.univision\.mobi" [NC]
+#RewriteRule ^(.*)$   http://m.1029houston.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino1029\.com" [NC] 
+#RewriteRule ^(.*)$   http://1029houston.univision.com/ [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^estereolatino1029\.univision\.com" [NC]
+#RewriteRule ^(.*)$   http://1029houston.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^m\.estereolatino1029\.univision\.com" [NC]
+#RewriteRule ^(.*)$   http://m.1029houston.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?1029houston\.com" [NC]
+#RewriteRule ^(.*)$   http://1029houston.univision.com [R=301,L,NE,NC]
+
+# KQBU switch
+RewriteCond "%{HTTP_HOST}" "^quebuena933\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.933houston.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^party1049\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://933houston.univision.com?cmpid=vnt:party1049.univision.com  [R=301,L,NE,NC]
+
+# additions
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuena933\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://933houston.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^quebuena933\.com" [NC]
+RewriteRule ^(.*)$   http://933houston.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?933houston\.com" [NC]
+RewriteRule ^(.*)$   http://933houston.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena933\.com" [NC]
+RewriteRule ^(.*)$   http://933houston.univision.com  [R=301,L,NE,NC]
+
+#  WOJO switch
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena1079\.com" [NC] 
+RewriteRule ^(.*)$   http://1051chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuena1079\.com" [NC] 
+RewriteRule ^(.*)$   http://1051chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuenachicago\.com" [NC] 
+RewriteRule ^(.*)$   http://1051chicago.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^quebuenachicago\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1051chicago.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wojo\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1051chicago.univision.com  [R=301,L,NE,NC]
+
+# additions
+RewriteCond "%{HTTP_HOST}" "^quebuenachicago\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://1051chicago.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuenachicago\.com" [NC]
+RewriteRule ^(.*)$   http://1051chicago.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1051chicago\.com" [NC]
+RewriteRule ^(.*)$   http://1051chicago.univision.com  [R=301,L,NE,NC]
+
+# KLNO
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena991\.com" [NC]  
+RewriteRule ^(.*)$   http://941dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena1071\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amordallas\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kess1270\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lafabulosa\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lapicuda1071\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?picuda1071\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino1071\.com" [NC] 
+RewriteRule ^(.*)$   http://941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^laquebuena941\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.941dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kdxx\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://941dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kess\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://941dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klno\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://941dallas.univision.com/  [R=301,L,NE,NC]
+
+# additions
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena941\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://941dallas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena941\.com" [NC]
+RewriteRule ^(.*)$  http://941dallas.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?941dallas\.com" [NC]
+RewriteRule ^(.*)$  http://941dallas.univision.com  [R=301,L,NE,NC]
+
+# KFZO
+RewriteCond "%{HTTP_HOST}" "^m\.lajefa991\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1079dallas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefadallas\.com" [NC] 
+RewriteRule ^(.*)$   http://1079dallas.univision.com/$1 [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefa991\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://1079dallas.univision.com/$1 [R=301,L,NE,NC]
+
+# additions
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefadallas\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1079dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefadallas\.com" [NC]
+RewriteRule ^(.*)$  http://1079dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1079dallas\.com" [NC]
+RewriteRule ^(.*)$  http://1079dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?dallas1079\.com" [NC]
+RewriteRule ^(.*)$  http://1079dallas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?hot1079dallas\.com" [NC]
+RewriteRule ^(.*)$  http://1079dallas.univision.com/  [R=301,L,NE,NC]
+
+# KSOL
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereosol989\.com" [NC] 
+RewriteRule ^(.*)$   http://estereosol989.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?ksol\.com" [NC] 
+RewriteRule ^(.*)$   http://estereosol989.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^estereosol989\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.estereosol989.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^ksol\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://estereosol989.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.estereosol989\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.989sanfrancisco.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereosol989\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://989sanfrancisco.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereosol989\.com" [NC]
+RewriteRule ^(.*)$  http://989sanfrancisco.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?989sanfrancisco\.com" [NC]
+RewriteRule ^(.*)$  http://989sanfrancisco.univision.com/  [R=301,L,NE,NC]
+
+# KROM
+RewriteCond "%{HTTP_HOST}" "^krom\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://estereolatino929.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?929estereolatino\.com" [NC] 
+RewriteRule ^(.*)$   http://estereolatino929.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino929\.com" [NC] 
+RewriteRule ^(.*)$   http://estereolatino929.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^estereolatino929\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.estereolatino929.univision.com [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.estereolatino929\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.929sanantonio.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino929\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://929sanantonio.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino929\.com" [NC]
+RewriteRule ^(.*)$   http://929sanantonio.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?929sanantonio\.com" [NC]
+RewriteRule ^(.*)$   http://929sanantonio.univision.com/ [R=301,L,NE,NC]
+
+# KLNV
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1065\.com" [NC] 
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1065\.com" [NC] 
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?noches106\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?noche106\.com" [NC]
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/la-nueva-eventos-clubes-nocturnos-san-diego [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1065\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.lanueva1065.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?la1065\.com" [NC]
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klnv\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sandiego\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^sd\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://lanueva1065.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.lanueva1065\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1065sandiego.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1065\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1065sandiego.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1065\.com" [NC]
+RewriteRule ^(.*)$  http://1065sandiego.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1065sandiego\.com" [NC]
+RewriteRule ^(.*)$  http://1065sandiego.univision.com/  [R=301,L,NE,NC]
+
+
+# KLQV
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1029klove\.com" [NC] 
+RewriteRule ^(.*)$   http://recuerdo1029.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?klove1029\.com" [NC] 
+RewriteRule ^(.*)$   http://recuerdo1029.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1029\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.recuerdo1029.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^klqv\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://recuerdo1029.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdo1029\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1029masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1029\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1029masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1029\.com" [NC]
+RewriteRule ^(.*)$  http://1029masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1029masvariedad\.com" [NC]
+RewriteRule ^(.*)$  http://1029masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# WQBU
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mami927\.com" [NC] 
+RewriteRule ^(.*)$   http://927nuevayork.univision.com/ [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.mami927\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.927nuevayork.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mami927\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://927nuevayork.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mami927\.com" [NC]
+RewriteRule ^(.*)$  http://927nuevayork.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?927nuevayork\.com" [NC]
+RewriteRule ^(.*)$  http://927nuevayork.univision.com/  [R=301,L,NE,NC]
+
+# WAMR
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wamr\.com" [NC] 
+RewriteRule ^(.*)$   http://1075amor.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amor107\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1075amor\.com" [NC] 
+RewriteRule ^(.*)$   http://1075amor.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^amor1075fm\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1075amor.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wamr\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1075amor.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.amor1075fm\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1075amor.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^amor1075fm\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1075amor.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?amor1075fm\.com" [NC]
+RewriteRule ^(.*)$  http://1075amor.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1075amor\.com" [NC]
+RewriteRule ^(.*)$  http://1075amor.univision.com/  [R=301,L,NE,NC]
+
+# KLOB 
+RewriteCond "%{HTTP_HOST}" "^m\.laquebuena1043\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1043austin.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^laquebuena1043\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1043austin.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^laquebuena1043\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?laquebuena1043\.com" [NC] 
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefaaustin\.com" [NC] 
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.lajefaaustin\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1043austin.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lajefaaustin\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefaaustin\.com" [NC]
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1043austin\.com" [NC]
+RewriteRule ^(.*)$  http://1043austin.univision.com/  [R=301,L,NE,NC]
+
+# KISF
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1035\.com" [NC] 
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1035\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1035lasvegas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?la1035\.com" [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kisf\.univision\.com"  [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lasvegas\.univision\.com"  [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.lanueva1035\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1035lasvegas.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1035\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1035\.com" [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1035lasvegas\.com" [NC]
+RewriteRule ^(.*)$  http://1035lasvegas.univision.com/  [R=301,L,NE,NC]
+
+# KOMR
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1063\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1063recuerdo\.com" [NC,OR] 
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdophoenix\.com" [NC] 
+RewriteRule ^(.*)$   http://1063masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdosphoenix\.com" [NC] 
+RewriteRule ^(.*)$   http://1063masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdophoenix\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1063masvariedad.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kmrr\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1063masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdophoenix\.univision\.com" [NC] 
+RewriteRule ^(.*)$   http://m.1063masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdophoenix\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1063masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdophoenix\.com" [NC]
+RewriteRule ^(.*)$  http://1063masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1063masvariedad\.com" [NC]
+RewriteRule ^(.*)$  http://1063masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# KHOT
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1059\.com" [NC]
+RewriteRule ^(.*)$   http://1059phoenix.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nueva1059\.com" [NC] 
+RewriteRule ^(.*)$   http://1059phoenix.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1059\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1059phoenix.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?la1059\.com" [NC]
+RewriteRule ^(.*)$   http://1059phoenix.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^khot\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1059phoenix.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.lanueva1059\.univision\.com"    [NC]
+RewriteRule ^(.*)$   http://m.1059phoenix.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lanueva1059\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1059phoenix.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lanueva1059\.com" [NC]
+RewriteRule ^(.*)$  http://1059phoenix.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1059phoenix\.com" [NC]
+RewriteRule ^(.*)$  http://1059phoenix.univision.com/  [R=301,L,NE,NC]
+
+# KJFA
+RewriteCond "%{HTTP_HOST}" "^(www\.)?jefa1013\.com" [NC] 
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lajefa1013\.com" [NC] 
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kjfa\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1051nuevomexico.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^albuquerque\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^coyote1025\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/?cmpid=vnt:coyote1025.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^horizon1051\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^lajefa1013\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.kjfa\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.1051nuevomexico.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kjfa\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1051nuevomexico.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kjfa\.com" [NC]
+RewriteRule ^(.*)$  http://1051nuevomexico.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1051nuevomexico\.com" [NC]
+RewriteRule ^(.*)$  http://1051nuevomexico.univision.com/  [R=301,L,NE,NC]
+
+# KLTN
+RewriteCond "%{HTTP_HOST}" "^kltn\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://houston1029.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^estereolatino\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://houston1029.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^estereolatino1029\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.houston1029.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?estereolatino1029\.com" [NC] 
+RewriteRule ^(.*)$   http://houston1029.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^estereolatino1029\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://houston1029.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^m\.estereolatino1029\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://m.houston1029.univision.com [R=301,L,NE,NC]
+
+#RewriteCond "%{HTTP_HOST}" "^(www\.)?1029houston\.com" [NC]
+#RewriteRule ^(.*)$   http://houston1029.univision.com [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.1029houston\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.houston1029.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^1029houston\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://houston1029.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?houston1029\.com" [NC]
+RewriteRule ^(.*)$  http://houston1029.univision.com/  [R=301,L,NE,NC]
+
+# KOND
+RewriteCond "%{HTTP_HOST}" "^queonda921\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.921fresno.univision.com [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.queonda921\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.921fresno.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^queonda921\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://921fresno.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?queonda921\.com" [NC]
+RewriteRule ^(.*)$  http://921fresno.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?921fresno\.com" [NC]
+RewriteRule ^(.*)$  http://921fresno.univision.com/  [R=301,L,NE,NC]
+
+# KRDA
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo1075\.com" [NC] 
+RewriteRule ^(.*)$   http://1075masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1075\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.1075masvariedad.univision.com [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdo1075\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.1075masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo1075\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://1075masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?1075masvariedad\.com" [NC]
+RewriteRule ^(.*)$  http://1075masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# KGBT
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kgbt\.com" [NC] 
+RewriteRule ^(.*)$   http://985mcallen.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kgbt985\.com" [NC] 
+RewriteRule ^(.*)$   http://985mcallen.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kgbt985\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.985mcallen.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kgbt-fm\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://985mcallen.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kgbt\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://985mcallen.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mcallen\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://985mcallen.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.kgbt985\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.985mcallen.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kgbt985\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://985mcallen.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?985mcallen\.com" [NC]
+RewriteRule ^(.*)$  http://985mcallen.univision.com/  [R=301,L,NE,NC]
+
+# KBTQ
+RewriteCond "%{HTTP_HOST}" "^recuerdo961\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.961masvariedad.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kbtq\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://961masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# additions
+# old mobile redirect
+RewriteCond "%{HTTP_HOST}" "^m\.recuerdo961\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.961masvariedad.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^recuerdo961\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://961masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdo961\.com" [NC]
+RewriteRule ^(.*)$  http://961masvariedad.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?961masvariedad\.com" [NC]
+RewriteRule ^(.*)$  http://961masvariedad.univision.com/  [R=301,L,NE,NC]
+
+# KBNA
+RewriteCond "%{HTTP_HOST}" "^(www\.)?quebuena975\.com" [NC] 
+RewriteRule ^(.*)$   http://975elpaso.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kbna975\.com" [NC] 
+RewriteRule ^(.*)$   http://975elpaso.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?kbnaradio\.com" [NC] 
+RewriteRule ^(.*)$   http://975elpaso.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?recuerdos975\.com" [NC] 
+RewriteRule ^(.*)$   http://975elpaso.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kbna975\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.975elpaso.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^elpaso\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://975elpaso.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kbna\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://975elpaso.univision.com/  [R=301,L,NE,NC]
+
+# mix983
+RewriteCond "%{HTTP_HOST}" "^(www\.)?salsa98\.com" [NC] 
+RewriteRule ^(.*)$   http://mix983.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?wrto\.com" [NC] 
+RewriteRule ^(.*)$   http://mix983.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?lakalle983fm\.com" [NC] 
+RewriteRule ^(.*)$   http://mix983.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^mix983\.univision\.mobi" [NC]
+RewriteRule ^(.*)$   http://m.mix983.univision.com [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^wrto\.univision\.com"  [NC]
+RewriteRule ^(.*)$   http://mix983.univision.com/?cmpid=vnt:wrto.univision.com  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mix983\.com" [NC] 
+RewriteRule ^TopPlayaCaribe$   http://mix983.univision.com/topplayacaribe [R=301,L,NE,NC]
+
+# leave this one last of the mix983 rules
+RewriteCond "%{HTTP_HOST}" "^(www\.)?mix983\.com" [NC] 
+RewriteRule ^(.*)$   http://mix983.univision.com/ [R=301,L,NE,NC]
+
+# 975elpaso
+
+RewriteCond "%{HTTP_HOST}" "^m\.kbna975\.univision\.com"   [NC]
+RewriteRule ^(.*)$   http://m.975elpaso.univision.com/ [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^kbna975\.univision\.com" [NC]
+RewriteRule ^(.*)$  http://975elpaso.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?975elpaso\.com" [NC]
+RewriteRule ^(.*)$  http://975elpaso.univision.com/  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?todoesposible\.com" [NC]
+RewriteRule ^(.*)$  http://todoesposible.abardev.net/  [R=301,L,NE,NC]
+
+# univision pharmacy redirects
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfarmacia\.com" [NC]
+RewriteRule ^aeela$   http://salud.univision.com/es/farmacia/aeela [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfarmacia\.com" [NC]
+RewriteRule ^app$   https://salud.univision.com/es/farmacia/pharmacy-app [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpharmacy\.com" [NC]
+RewriteRule ^app$   https://salud.univision.com/en/pharmacy/pharmacy-app [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpharmacy\.com" [NC]
+RewriteRule ^autismspeaks$  https://salud.univision.com/en/pharmacy/autismspeaks [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpharmacy\.com" [NC]
+RewriteRule ^(.*)$  https://salud.univision.com/en/pharmacy  [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfarmacia\.com" [NC]
+RewriteRule ^autismohabla$  https://salud.univision.com/es/farmacia/autismohabla [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionfarmacia\.com" [NC,OR]
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionrx\.com" [NC]
+RewriteRule ^(.*)$   http://salud.univision.com/es/farmacia [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?univisionpartnergroup\.com" [NC]
+RewriteRule ^(.*)$   http://corporate.univision.com/advertise [R=301,L,NE,NC]
+
+RewriteCond "%{HTTP_HOST}" "^(www\.)?nba\.univision\.com" [NC]
+RewriteRule ^(.*)$   http://www.univision.com/deportes/nba [R=301,L,NE,NC]
+
+#----------------------- This should always be last ------------
+RewriteCond %{HTTP_HOST}   !^(.*)\.uolsite\.univision\.com [NC]
+RewriteRule ^(.*)$   http://www.univision.com [R=301,L,NE,NC]
+

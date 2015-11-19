@@ -1,0 +1,91 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DescribeActions",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:Describe*",
+                "s3:Describe*",
+                "elasticmapreduce:Describe*",
+                "rds:Describe*"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "Ec2Permissions1",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RunInstances"
+            ],
+            "Resource": [
+                "arn:aws:ec2:us-west-1:627758403665:instance/*",
+                "arn:aws:ec2:us-west-1:627758403665:key-pair/*",
+                "arn:aws:ec2:us-west-1:627758403665:security-group/*",
+                "arn:aws:ec2:us-west-1:627758403665:volume/*",
+                "arn:aws:ec2:us-west-1::image/ami-*"
+            ]
+        },
+        {
+            "Sid": "Ec2Permissions2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:TerminateInstances",
+                "ec2:StopInstances",
+                "ec2:StartInstances"
+            ],
+            "Resource": "arn:aws:ec2:us-west-1:627758403665:instance/*"
+        },
+        {
+            "Sid": "S3Permissions",
+            "Effect": "Allow",
+            "Action": [
+                "s3:AbortMultipartUpload",
+                "s3:CreateBucket",
+                "s3:Delete*",
+                "s3:Get*",
+                "s3:List*",
+                "s3:Put*",
+                "s3:RestoreObject"
+            ],
+            "Resource": "arn:aws:s3:us-west-1::*"
+        },
+        {
+            "Sid": "RdsPermissions",
+            "Effect": "Allow",
+            "Action": [
+                "rds:Add*",
+                "rds:ApplyPendingMaintenanceAction",
+                "rds:AuthorizeDBSecurityGroupIngress",
+                "rds:Copy*",
+                "rds:Create*",
+                "rds:Delete*",
+                "rds:DownloadDBLogFilePortion",
+                "rds:ListTagsForResource",
+                "rds:Modify*",
+                "rds:PromoteReadReplica",
+                "rds:PurchaseReservedDBInstancesOffering",
+                "rds:RebootDBInstance",
+                "rds:Remove*",
+                "rds:Restore*",
+                "rds:ResetDBParameterGroup",
+                "rds:RevokeDBSecurityGroupIngress"
+            ],
+            "Resource": "arn:aws:rds:us-west-1:627758403665:*"
+        },
+        {
+            "Sid": "Stmt1432226605000",
+            "Effect": "Allow",
+            "Action": [
+                "elasticmapreduce:Add*",
+                "elasticmapreduce:List*",
+                "elasticmapreduce:ModifyInstanceGroups",
+                "elasticmapreduce:RemoveTags",
+                "elasticmapreduce:RunJobFlow",
+                "elasticmapreduce:SetTerminationProtection",
+                "elasticmapreduce:TerminateJobFlows"
+            ],
+            "Resource": "arn:aws:elasticmapreduce:us-west-1:627758403665:*"
+        }
+    ]
+}

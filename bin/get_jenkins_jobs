@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require 'jenkins_api_client'
+
+options = {
+  :server_url => 'http://uvndev-jenkins.elasticbeanstalk.com',
+  :username => 'admin',
+  :password => 'xxxxxxxxxxxxxxxxxxxxxx'
+}
+
+j = JenkinsApi::Client.new(options)
+
+path = File.join(File.expand_path('../../', __FILE__), 'jenkins', 'files', 'jobs')
+
+j.job.list("").each do |name|
+  job = "/job/#{name}"
+  config = j.get_config(job)
+  puts "writing job #{name}.xml"
+  File.write("#{path}/#{name}.xml", config)
+end

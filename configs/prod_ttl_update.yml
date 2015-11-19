@@ -1,0 +1,7 @@
+---
+
+ttl_seconds: 60
+domains:
+  -
+    dnsname: cine.univision.com.
+    resource:

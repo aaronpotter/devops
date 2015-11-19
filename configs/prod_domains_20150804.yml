@@ -1,0 +1,24 @@
+---
+ttl_seconds: 60
+hosted_zones:
+  -
+    id: "/hostedzone/Z3AJU82UHYQUG9"
+    domains:
+      -
+        dnsname: uvideos.com.
+        resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    id: "/hostedzone/Z1PU2N3W0LJTNW"
+    domains:
+      -
+        dnsname: videos.univision.com.
+        resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+      -
+        dnsname: video.univision.com.
+        resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    id: "/hostedzone/Z2FUXPJHXYZ0LD"
+    domains:
+      -
+        dnsname: cms.uvn.io.
+        resource: univision-cms-2-1255582201.us-east-1.elb.amazonaws.com.

@@ -1,0 +1,117 @@
+---
+ttl_seconds: 60
+hosted_zones:
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  - dnsname: univisionsacramento.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: chicago.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: northcarolina.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: univisionfresno.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: univisionaustin.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: dallas.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: univisionnuevayork.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: 941dallas.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: atlanta.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: wkaq580.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: amor1067.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: local.univision.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: kq105.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: local.univision.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: m4w.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: www2.univision.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: m.raleigh.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: uimprod.smartpathlink.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: 985mcallen.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: local.univision.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: m.985mcallen.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: uimprod.smartpathlink.com.
+    alias_target: 
+    type: CNAME

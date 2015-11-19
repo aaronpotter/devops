@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+
+VERSION="1.0.0"
+BANNER="Database Prod sync for Devint, version #{VERSION}"
+
+$:.unshift File.expand_path("../../lib", __FILE__)
+require "commander"
+require "hashie"
+require "devops_api"
+
+require "pry"
+require "awesome_print"
+
+begin
+
+  slop = Slop.parse(strict: true, help: true) do
+    banner "#{BANNER}\n\nUsage: team_env_db_restore [options]"
+    on 'd', 'date',    '[optional] date to sync down. Defaults to today\'s date. format: YYYY-MM-DD', { argument: :optional, default: DateTime.now.strftime("%Y-%m-%d") }
+    on 'u', 'user',    '[optional] user for the target server.', { argument: :optional, default: "ubuntu" }
+    on 'k', 'ssh_key', '[optional] user\'s authorized key for the target server.', { argument: :optional, default: "~/.ssh/utility-devops.pem" }
+    on 'e', 'env',     '[optional] set the ENV that DevopsApi should use.', { argument: :optional, default: "dev" }
+    on 'v', 'version' do
+      puts "#{BANNER}"
+      exit 0
+    end
+  end
+
+  opts = Hashie::Mash.new(slop.to_h)
+
+  # if date is string make it a time object
+  # assuming a format of YYY-MM-DD
+  opts.date_obj = DateTime.iso8601("#{opts.date}T#{Time.now.strftime("%H:%M:%S%:z")}")
+
+  bucket_name = "univision-backups"
+  # assumes that you have an AWS credentials profile named "psd"
+  lzo_path = DevopsApi.new("psd").get_object_path(bucket_name, /^backups-v2.+production.+master.+#{opts.date_obj.strftime("%Y\\.%m\\.%d")}.+mysql.xbstream.full.lzo$/)
+  import_path = "/data/backups/import_#{opts.date_obj.strftime("%Y%m%d%H%M%S")}"
+
+  hosts = DevopsApi.new(opts.env).servers(/univision (foundation|sports|avengers) serial-10 development/).map(&:public_ip_address)
+  hosts.each do |host|
+    [
+      {
+        list: [
+          # auto add fingerprint to known_hosts file
+          "ssh-keyscan -t rsa,dsa #{host} 2>&1 | sort -u - ~/.ssh/known_hosts > ~/.ssh/tmp_hosts",
+          'cat ~/.ssh/tmp_hosts >> ~/.ssh/known_hosts',
+        ],
+        local: true,
+        quiet: true
+      },
+      # /var/lib/mysql
+      {
+        list: [
+          'sudo -i service univision stop',
+          "[ -f /data/mysql.xbstream.full.lzo ] || sudo -i mv /data/mysql.xbstream.full.lzo /data/mysql.xbstream.full.lzo.orig",
+          "sudo -i aws s3 cp s3://#{bucket_name}/#{lzo_path} /data/",
+          '[ -f /data/mysql.xbstream.full.lzo.orig ] || sudo -i rm -rf /data/mysql.xbstream.full.lzo.orig',
+          "sudo -i mkdir #{import_path}",
+          "sudo -i lzop -vdc /data/mysql.xbstream.full.lzo | sudo -i xbstream -x -C #{import_path}",
+          "sudo -i innobackupex --use-memory=4G --apply-log #{import_path}/",
+          "sudo -i chown -R mysql:mysql #{import_path}",
+          'sudo -i service mysql stop',
+          "sudo -i ln -nfs #{import_path} /var/lib/mysql",
+          'sudo -i service mysql start',
+          'sudo -i service univision start',
+        ],
+        local: false,
+        quiet: false
+      },
+    ].each{ |command|
+      opts.local = command[:local]
+      opts.host = host
+      Commander::Commands.new(command[:list], opts).run
+    }
+  end
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+  puts opts
+end

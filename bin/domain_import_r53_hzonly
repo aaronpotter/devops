@@ -1,0 +1,118 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+require 'ruby-progressbar'
+
+class Api
+  include DevopsApi
+end
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Domain Cutover List Hosted Zones, version #{VERSION}\n\nUsage: domain_import_r53 [options]"
+    on 'p', 'profile', '[required] The name of the AWS credential profile to use.', argument: true
+    on 'f', 'file', '[required] The location of the csv file to be tested.', argument: true
+    on 'v', 'version' do
+      puts 'domain cutover, version #{version}'
+      exit 0
+    end
+  end
+  
+  opts_slop = opts
+  opts = Hashie::Mash.new(opts_slop.to_hash)
+
+  # Profile required test
+  raise 'AWS Profile name required!' unless opts.profile?
+  raise 'Location of config YAML [-f PATHTOYAML] required!' unless opts.file?
+  opts.file = File.expand_path( opts.file )
+  raise "Config YAML file not found at \"#{opts.file}\"." unless File.exist?( opts.file )
+
+  api = Api.new(opts.profile)
+  caller_reference = "domain_import_#{Time.now.strftime("%Y%m%d%H%M%S")}"
+
+  yml = YAML.load_file( opts.file )
+  domains = yml['domains'].map{|d| Hashie::Mash.new(d) }
+
+  puts '# Domains to import #################################################'
+  puts ''
+  puts domains.map{ |d| d.name }.join("\n")
+  puts ''
+
+  # this logic should be placed in a function
+  found_delegation_sets = api.r53.list_reusable_delegation_sets
+  delegation_set = found_delegation_sets.delegation_sets.empty? ? api.r53.create_reusable_delegation_set({
+    caller_reference: caller_reference,
+    hosted_zone_id: "Z1PU2N3W0LJTNW"
+  }) : found_delegation_sets.delegation_sets.first
+
+  puts '# Name Servers to Use ###############################################'
+  puts ''
+  ap delegation_set
+  puts ''
+
+  puts '# Creating Hosted Zones #############################################'
+  puts ''
+  @status = nil
+  domains.each do |domain|
+    begin
+      puts "Creating HZ #{domain.name}."
+      hosted_zone = {
+        name: "#{domain.name}.",
+        caller_reference: "#{caller_reference}.#{rand(999)}",
+        delegation_set_id: delegation_set.id
+      }
+      # create hosted zone
+      hz_resp = api.r53.create_hosted_zone(hosted_zone)
+      # wait for change
+      puts ''
+      @status = api.r53.get_change( { id: hz_resp.change_info.id } ).change_info.status
+      pb = ProgressBar.create( title: 'Create HZ Live? ', format: '%t %B', progress_mark: '✘', total: 1000 )
+      while @status == 'PENDING' do
+        pb.increment
+        @status = api.r53.get_change( { id: hz_resp.change_info.id } ).change_info.status
+        sleep 0.25
+      end
+      pb.stop
+      puts "Create HZ is now #{@status}."
+      puts ''
+    rescue Aws::Route53::Errors::HostedZoneAlreadyExists, Aws::Route53::Errors::ConflictingDomainExists => e
+      puts "!!! HZ for #{domain.name} already exsists !!!"
+      puts ''
+    rescue => e
+      raise e
+    end
+    hz_find_resp = api.r53.list_hosted_zones.hosted_zones.select{|hz| hz.name == "#{domain.name}." }
+    hz_resp = api.r53.get_hosted_zone({
+      id: hz_find_resp[0].id
+    })
+
+    puts ''
+
+    ap hz_resp
+
+    puts ''
+    puts '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+    puts ''
+
+  end
+
+  puts '# Cut and Paste for CSC #############################################'
+  puts ''
+  puts domains.map{ |d| d.name }.join(',')
+  puts ''
+
+rescue => e
+  puts ''
+  puts e.class
+  puts e.message
+  puts e.backtrace.join("\n")
+  puts ''
+  puts opts_slop
+end

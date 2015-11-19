@@ -1,0 +1,45 @@
+#!/usr/bin/env ruby
+
+VERSION='1.1.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+
+class Api
+  include DevopsApi
+end
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Domain Cutover List Hosted Zones, version #{VERSION}\n\nUsage: domain_cutover_list_hz [options]"
+    on 'p', 'profile', '[required] The name of the AWS credential profile to use.', argument: true
+    on 'v', 'version' do
+      puts 'domain cutover, version #{version}'
+      exit 0
+    end
+  end
+
+  opts = Hashie::Mash.new(opts.to_hash)
+
+  # Profile required test
+  raise 'AWS Profile name required!' unless opts.profile?
+
+  api = Api.new(opts.profile)
+
+  # list hosted zones
+  hz_list = api.get_hosted_zone_list
+  puts ''
+  puts 'Hosted Zones'
+  puts ''
+  ap hz_list
+  puts ''
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+end

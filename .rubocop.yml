@@ -1,0 +1,9 @@
+Style/Copyright:
+  Notice: '^Copyright (\(c\) )?2[0-9]{3} .+'
+  AutocorrectNotice: '# Copyright (c) 2015 Univision Communications Inc.'
+Metrics/LineLength:
+  Max: 255
+  AllowURI: true
+  URISchemes:
+    - http
+    - https

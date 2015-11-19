@@ -1,0 +1,160 @@
+---
+ttl_seconds: 60
+hosted_zones:
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  - dnsname: univision.com.
+    resource: 
+    resource_backup: 64.14.58.197
+  - dnsname: www.univision.com.
+    resource: 
+    resource_backup: www.univision.com.edgesuite.net.
+  - dnsname: beta.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: videos.univision.com.
+    resource: 
+    resource_backup: uvideos.prod.univision.psdops.com.
+  - dnsname: video.univision.com.
+    resource: 
+    resource_backup: uvideos.prod.univision.psdops.com.
+  - dnsname: antahkarana.univision.com.
+    resource: 
+    resource_backup: ns1.tronics.com.
+  - dnsname: bellezaymoda.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: blog.univision.com.
+    resource: 
+    resource_backup: 64.14.58.95
+  - dnsname: casa.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: cocina.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: correo.univision.com.
+    resource: 
+    resource_backup: 64.14.58.89
+  - dnsname: deportes.univision.com.
+    resource: 
+    resource_backup: futbol.univision.com.edgesuite.net.
+  - dnsname: deportesenvivo.univision.com.
+    resource: 
+    resource_backup: deportesenvivo.neulion.net.
+  - dnsname: entretenimiento.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: especiales.futbol.univision.com.
+    resource: 
+    resource_backup: worldcup.prod.psddev.com.
+  - dnsname: especiales.univision.com.
+    resource: 
+    resource_backup: 64.14.58.95
+  - dnsname: futbol.univision.com.
+    resource: 
+    resource_backup: futbol.univision.com.edgesuite.net.
+  - dnsname: m.bellezaymoda.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.casa.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: m.cine.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: m.cocina.univision.com.
+    resource: 
+    resource_backup: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  - dnsname: m.compras.univision.com.
+    resource: 
+    resource_backup: 64.14.58.89
+  - dnsname: m.deportes.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.entretenimiento.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.futbol.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.mls.univision.com.
+    resource: 
+    resource_backup: backpageadmin-c.univision.com.
+  - dnsname: m.movil.univision.com.
+    resource: 
+    resource_backup: r.univision.com.
+  - dnsname: m.musica.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.nfl.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.novelasyseries.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.tv.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.vidayfamilia.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: m.videojuegos.univision.com.
+    resource: 
+    resource_backup: 64.14.58.89
+  - dnsname: m.www.univision.com.
+    resource: 
+    resource_backup: uimprod.smartpathlink.com.
+  - dnsname: mimusica.univision.com.
+    resource: 
+    resource_backup: cms.univision.com.
+  - dnsname: mls.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: movil.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: musica.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: nfl.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: novelasyseries.univision.com.
+    resource: 
+    resource_backup: www2.univision.com.
+  - dnsname: tv.univision.com.
+    resource: 
+    resource_backup: 64.14.58.84
+  - dnsname: h.bellezaymoda.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.deportes.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.entretenimiento.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.futbol.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.musica.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.novelasyseries.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.tv.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+  - dnsname: h.vidayfamilia.univision.com.
+    resource: 
+    resource_backup: h.www.univision.com.
+- id: "/hostedzone/Z1GT5PV6ATEFLU"
+  domains:
+  - dnsname: novelasyseries.univision.mobi.
+    resource: 
+    resource_backup: 64.14.58.89
+  - dnsname: univision.mobi.
+    resource: 
+    resource_backup: 64.14.58.89

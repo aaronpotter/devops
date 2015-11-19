@@ -1,0 +1,183 @@
+#!/usr/bin/env ruby
+
+VERSION='1.1.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'commander'
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+require 'highline/import'
+require 'ruby-progressbar'
+
+class Api
+  include DevopsApi
+end
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Domain Cutover, version #{VERSION}\n\nUsage: domain_cutover [options]\n\nWARNING: This script assumes that you are converting all record to CNAME and are linking to a Load Balancer with a FQDN.\n"
+    on 'c', 'config_file', '[required] the config yaml to use to define the domains to cutover.', argument: true
+    on 'p', 'profile', '[required] The name of the AWS credential profile to use.', argument: true
+    on 'd', 'dryrun', 'do a dry run'
+    on 's', 'save', 'save backups'
+    on 't', 'ttl', 'ttl only?', { argument: :optional, default: false } 
+    on 'r', 'rollback', 'rollback to saved backups'
+    on 'v', 'version' do
+      puts "domain cutover, version #{VERSION}"
+      exit 0
+    end
+  end
+
+  opts = Hashie::Mash.new( opts.to_hash )
+
+  # Config required test
+  raise 'Location of config YAML [-c PATHTOYAML] required!' unless opts.config_file?
+  opts.config_file = File.expand_path( opts.config_file )
+  raise 'YAML file not found' unless File.exist?( opts.config_file )
+
+  # Profile required test
+  raise 'AWS Profile name required!' unless opts.profile?
+
+  api = Api.new( opts.profile )
+
+  def get_change_status id, api
+    api.r53.get_change( { id: id } )
+  end
+
+  def set_record_value record, resource, hz, ttl
+    return record if ttl
+    if record[:type] == 'A'
+      record[:type] = 'CNAME'
+    end
+    record[:alias_target] = nil
+    record[:resource_records] = [{ value: resource }]
+    record
+  end
+
+  # config
+  yml = YAML.load_file( opts.config_file )
+  ttl_seconds = yml['ttl_seconds']
+  hosted_zones = yml['hosted_zones'].map{|hz| Hashie::Mash.new(hz) }
+
+  hz_list = api.get_hosted_zone_list
+  changes = []
+  hosted_zones.each_with_index{ |hz,n|
+
+    # select hosted zone
+    unless hz.id?
+      puts ''
+      puts 'Hosted Zones'
+      puts ''
+      hz_list.each_with_index{ |zone,i|
+        puts "#{i}.) #{zone[:name]} (#{zone[:id]})"
+      }
+      puts ''
+      puts 'Select hosted zone to apply changes to.'
+      hz_chosen = ask( '   zone #: ' )
+      found_hz = hz_list[hz_chosen.to_i]
+    else
+      found_hz = hz_list.find{|item| item[:id] == hz.id }
+      raise "Hosted Zone with id #{hz.id} not found!" if found_hz.nil?
+    end
+    hz.id = found_hz[:id] if hz.id.nil?
+    hz.name = found_hz[:name]
+    puts "   \'#{hz.name}\' is the selected Hosted Zone."
+
+    # collect A records
+    records = []
+    hz.domains.each_with_index{ |domain,j|
+      found_record = api.r53.list_resource_record_sets( {
+        hosted_zone_id: hz.id,
+        start_record_name: domain['dnsname'],
+        max_items: 1
+      } ).resource_record_sets[0]
+      raise "Domain \'#{domain['dnsname']}\' not found in Hosted Zone \'#{hz.name}\'." if found_record.nil?
+      records << found_record if domain['dnsname'] == found_record[:name] and (found_record[:type] == 'A' || found_record[:type] == 'CNAME')
+      yml['hosted_zones'][n]['domains'][j]['resource_records'] = found_record[:resource_records]
+      yml['hosted_zones'][n]['domains'][j]['alias_target'] = found_record[:alias_target]
+      yml['hosted_zones'][n]['domains'][j]['type'] = found_record[:type]
+    }
+
+    # update record's TTL and record's resource if not blank
+    updated_records = []
+    records.each_with_index{ |r,i|
+      r[:ttl] = ttl_seconds
+      resource_value = opts.rollback? ? hz.domains[i]['resource_backup'] : hz.domains[i]['resource']
+      r = set_record_value( r, resource_value, hz, opts.ttl )
+      updated_records << {
+        action: 'UPSERT',
+        resource_record_set: r.to_h
+      }
+    }
+
+    # create change hash and add it to the changes array
+    changes << {
+      hosted_zone_id: hz.id,
+      change_batch: {
+        comment: "changing records' TTL to #{ttl_seconds} and resource-values of HZ #{hz.name}.",
+        changes: updated_records
+      }
+    }
+
+  } # END hosted_zones.each
+
+  if opts.dryrun.nil?
+
+    changes.each{ |change|
+
+      puts ''
+      puts '..:::::::::::::::::::::::::::::::::::::::..'
+      puts ''
+      puts change[:change_batch][:comment]
+      # changing records
+      result = api.change_zone_records change
+
+      # wait for change
+      puts ''
+      @status = get_change_status( result.change_info.id, api ).change_info.status
+      pb = ProgressBar.create( title: 'Change Live?', format: '%t %B', progress_mark: '✘', total: 1000 )
+      while @status == 'PENDING' do
+        pb.increment
+        @status = get_change_status( result.change_info.id, api ).change_info.status
+        sleep 0.25
+      end
+      pb.stop
+      puts "Change is now #{@status}."
+
+    }
+
+    if opts.save?
+      puts ''
+      puts '..:::::::::::::::::::::::::::::::::::::::..'
+      puts ''
+      puts 'save backup data'
+      File.open(opts.config_file, 'w') { |f| YAML.dump(yml, f) }
+      puts ''
+    end
+
+  else
+
+    puts ''
+    puts '..:::::::::::::::::::::::::::::::::::::::..'
+    puts ''
+    puts 'Change Hash to send to AWS.'
+    ap changes
+    puts ''
+    if opts.save?
+      puts '..:::::::::::::::::::::::::::::::::::::::..'
+      puts ''
+      puts 'save backup data'
+      File.open(opts.config_file, 'w') { |f| YAML.dump(yml, f) }
+      puts ''
+    end
+
+  end
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+end

@@ -1,0 +1,257 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+require 'ruby-progressbar'
+
+class Api
+  include DevopsApi
+end
+
+def get_hz domain, api
+  hzs = []
+  marker = ""
+  while marker.class == String do
+    resp = marker.empty? ? api.r53.list_hosted_zones : api.r53.list_hosted_zones({ marker: marker })
+    hzs = hzs + resp.hosted_zones
+    marker = resp.next_marker
+  end
+  hzs.select!{|hz| hz.name == "#{domain}." }
+  return nil if hzs.empty?
+  hz_resp = api.r53.get_hosted_zone({
+    id: hzs[0].id
+  })
+  hz_resp
+rescue Aws::Route53::Errors::Throttling
+  sleep 30
+  get_hz(domain, api)
+end
+
+def hz_has_records? hosted_zone, api
+  records = api.r53.list_resource_record_sets({ hosted_zone_id: hosted_zone.id }).resource_record_sets
+  found = 0
+  records.each do |record|
+    next unless record.type =~ /^(A|CNAME)$/
+    is_name = record.name == hosted_zone.name || record.name == "\\052.#{hosted_zone.name}"
+    is_target = false
+    is_target = !( record.resource_records[0].value =~ /univision-web-2-1444712993/ ).nil? if !record.resource_records.empty?
+    is_target = !( record.alias_target.dns_name =~ /univision-web-2-1444712993/ ).nil? if !record.alias_target.nil?
+    found = found + 1 if is_name && is_target
+    break if found == 2
+  end
+  found == 2
+end
+
+def has_records? hosted_zone, api
+  records = api.r53.list_resource_record_sets({ hosted_zone_id: hosted_zone.id })
+  found = 0
+  records.resource_record_sets.each do |record|
+    is_type = record.type =~ /(A|CNAME)/
+    is_target = !( record.resource_records[0].value =~ /univision-cms-2-1255582201/ ).nil? if !record.resource_records.empty?
+    is_target = !( record.alias_target.dns_name =~ /univision-cms-2-1255582201/ ).nil? if !record.alias_target.nil?
+    found += 1 if is_type && is_target
+  end
+  found == 2
+end
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Domain Cutover List Hosted Zones, version #{VERSION}\n\nUsage: domain_import_r53 [options]"
+    on 'p', 'profile', '[required] The name of the AWS credential profile to use.', argument: true
+    on 'f', 'file', '[required] The location of the csv file to be tested.', argument: true
+    on 'v', 'version' do
+      puts 'domain cutover, version #{version}'
+      exit 0
+    end
+  end
+
+  opts_slop = opts
+  opts = Hashie::Mash.new(opts_slop.to_hash)
+
+  # Profile required test
+  raise 'AWS Profile name required!' unless opts.profile?
+  raise 'Location of config YAML [-f PATHTOYAML] required!' unless opts.file?
+  opts.file = File.expand_path( opts.file )
+  raise "Config YAML file not found at \"#{opts.file}\"." unless File.exist?( opts.file )
+
+  api = Api.new(opts.profile)
+  caller_reference = "domain_import_#{Time.now.strftime("%Y%m%d%H%M%S")}"
+
+  yml = YAML.load_file( opts.file )
+  domains = yml['domains'].map{|d| Hashie::Mash.new(d) }
+
+  puts '# Domains to import #################################################'
+  puts ''
+  puts domains.map{ |d| d.name }.join("\n")
+  puts ''
+
+  delegation_sets = api.r53.list_reusable_delegation_sets.delegation_sets
+
+  puts '# Creating Hosted Zones #############################################'
+  puts ''
+  @status = nil
+  domain_report = { "not_set" => [] }
+  delegation_sets.each do |delegation_set|
+    domain_report["#{delegation_set.id}"] = []
+  end
+  domains.each do |domain|
+    begin
+      if !get_hz(domain.name, api).nil?
+        applied_delegation_set = Hashie::Mash.new({ id: "not_set" })
+        raise DevopsApi::Exceptions::HostedZoneFound
+      end
+      puts "Creating HZ #{domain.name}."
+      puts ''
+      # create hosted zone
+      hz_resp = nil
+      applied_delegation_set = nil
+      delegation_sets.each do |delegation_set|
+        hosted_zone = {
+          name: "#{domain.name}.",
+          caller_reference: "#{caller_reference}.#{rand(999)}",
+          delegation_set_id: delegation_set.id
+        }
+        begin
+          hz_resp = api.r53.create_hosted_zone(hosted_zone)
+          applied_delegation_set = delegation_set
+        rescue Aws::Route53::Errors::TooManyHostedZones => e
+          puts "!!! Delegation Set #{delegation_set.id} Full !!!"
+          next
+        end
+      end
+      # create HZ with a new delegation set
+      if hz_resp.nil?
+        hosted_zone = {
+          name: "#{domain.name}.",
+          caller_reference: "#{caller_reference}.#{(rand(1000)+rand(1000)).to_s(36)}"
+        }
+        # create hosted zone
+        hz_resp = api.r53.create_hosted_zone(hosted_zone)
+        applied_delegation_set = api.r53.create_reusable_delegation_set({
+          caller_reference: caller_reference,
+          hosted_zone_id: hz_resp.hosted_zone.id
+        })
+        #refresh delegation sets
+        delegation_sets = api.r53.list_reusable_delegation_sets.delegation_sets
+      end
+      # wait for change
+      puts ''
+      @status = api.r53.get_change( { id: hz_resp.change_info.id } ).change_info.status
+      pb = ProgressBar.create( title: 'Create HZ Live? ', format: '%t %B', progress_mark: '✘', total: 1000 )
+      while @status == 'PENDING' do
+        pb.increment
+        @status = api.r53.get_change( { id: hz_resp.change_info.id } ).change_info.status
+        sleep 0.25
+      end
+      pb.stop
+      puts "Create HZ is now #{@status}."
+      puts ''
+    rescue DevopsApi::Exceptions::HostedZoneFound => e
+      puts "!!! HZ for #{domain.name} already exsists !!!"
+      puts ''
+      puts '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+      puts ''
+    rescue Aws::Route53::Errors::HostedZoneAlreadyExists, Aws::Route53::Errors::ConflictingDomainExists => e
+      puts "!!! HZ for #{domain.name} already exsists !!!"
+      puts "||| #{e.message} !!!"
+      puts ''
+      puts '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+      puts ''
+      applied_delegation_set = Hashie::Mash.new({ id: "not_set" })
+      sleep 1 # for AWS HZ Creation Throttling
+    end
+    domain_report[applied_delegation_set.id] << domain.name
+    hz_resp = get_hz(domain.name, api)
+    next if hz_resp.nil? || hz_has_records?(hz_resp.hosted_zone, api)
+    begin
+      puts "Creating Records for HZ #{hz_resp.hosted_zone.id}"
+      change = {
+        hosted_zone_id: hz_resp.hosted_zone.id,
+        change_batch: {
+          comment: "Cteating base records for #{domain.name}.",
+          changes: [
+            {
+              action: 'CREATE',
+              resource_record_set: {
+                name: "#{domain.name}.",
+                type: 'A',
+                alias_target: {
+                  hosted_zone_id: 'Z35SXDOTRQ7X7K',
+                  dns_name: 'dualstack.univision-web-2-1444712993.us-east-1.elb.amazonaws.com.',
+                  evaluate_target_health: false
+                },
+                resource_records: nil
+              }
+            },
+            {
+              action: 'CREATE',
+              resource_record_set: {
+                name: "*.#{domain.name}.",
+                type: 'CNAME',
+                ttl: 60,
+                alias_target: nil, 
+                resource_records: [
+                  {
+                    value: 'univision-web-2-1444712993.us-east-1.elb.amazonaws.com.'
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+      # create HZ records
+      record_resp = api.r53.change_resource_record_sets(change)
+      # wait for status INSYNC
+      puts ''
+      @status = api.r53.get_change( { id: record_resp.change_info.id } ).change_info.status
+      pb = ProgressBar.create( title: 'Create HZ records Live? ', format: '%t %B', progress_mark: '✘', total: 1000 )
+      while @status == 'PENDING' do
+        pb.increment
+        @status = api.r53.get_change( { id: record_resp.change_info.id } ).change_info.status
+        sleep 0.25
+      end
+      pb.stop
+      puts "Create HZ records is now #{@status}."
+      puts ''
+    rescue Aws::Route53::Errors::InvalidChangeBatch => e
+      puts "!!! #{domain.name} already has those records !!!"
+      puts ''
+    rescue => e
+      raise e
+    end
+
+    puts '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+    puts ''
+
+  end
+
+  puts '# Name Servers to Use ###############################################'
+  puts ''
+  ap api.r53.list_reusable_delegation_sets
+  puts ''
+
+  puts '# Cut and Paste for CSC #############################################'
+  puts ''
+  domain_report.each do |k,v|
+    puts "DelegationSet ID: #{k}"
+    puts v.join(',')
+    puts ''
+    puts '- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+    puts ''
+  end
+
+rescue => e
+  puts ''
+  puts e.class
+  puts e.message
+  puts e.backtrace.join("\n")
+  puts ''
+  puts opts_slop
+end

@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" || true
+
+brew update
+brew install git
+brew install maven
+
+brew install caskroom/cask/brew-cask
+brew cask install packer
+brew cask install virtualbox
+# brew cask install vagrant
+brew cask install vagrant-manager
+brew cask install chefdk
+#brew cask install java
+
+export PATH="/opt/chefdk/embedded/bin:${HOME}/.chefdk/gem/ruby/2.1.0/bin:$PATH"
+
+/opt/chefdk/embedded/bin/gem install knife-solo || true
+/opt/chefdk/embedded/bin/gem install knife-solo_data_bag || true
+
+for plugin in berkshelf omnibus cachier
+do
+    installed=`vagrant plugin list | grep -c vagrant-${plugin}`
+    if [ "$?" = "1" ]; then
+        vagrant plugin install vagrant-${plugin}
+    else
+        echo "vagrant-plugin vagrant-${plugin} installed"
+    fi
+done
+
+curl -s -L --cookie "oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jce/7/UnlimitedJCEPolicyJDK7.zip > UnlimitedJCEPolicyJDK7.zip
+unzip UnlimitedJCEPolicyJDK7.zip
+
+LOCAL_POLICIES=`mdfind local_policy.jar | grep ^\/Library\/Java`
+for P in $LOCAL_POLICIES
+do
+    sudo cp -v UnlimitedJCEPolicy/local_policy.jar $P
+done
+
+EXPORT_POLICIES=`mdfind US_export_policy.jar | grep ^\/Library\/Java`
+for P in $EXPORT_POLICIES
+do
+    sudo cp -v UnlimitedJCEPolicy/US_export_policy.jar $P
+done
+
+rm -rf UnlimitedJCEPolicy UnlimitedJCEPolicyJDK7.zip

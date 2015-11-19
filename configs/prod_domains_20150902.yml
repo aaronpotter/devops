@@ -1,0 +1,33 @@
+---
+ttl_seconds: 60
+hosted_zones:
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  - dnsname: foros.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: www2.univision.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: foro.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct
+      value: univision.lithium.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: www.foro.univision.com.
+    resource: foro.univision.com.
+    resource_records:
+    - !ruby/struct
+      value: univision.lithium.com.
+    alias_target: 
+    type: CNAME
+  - dnsname: m.foros.univision.com.
+    resource: foros.univision.com.
+    resource_records:
+    - !ruby/struct
+      value: local.univision.com.
+    alias_target: 
+    type: CNAME

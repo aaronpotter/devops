@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+VERSION='1.0.0'
+
+$:.unshift File.expand_path('../../lib', __FILE__)
+require 'hashie'
+require 'devops_api'
+require 'pry'
+require 'awesome_print'
+require 'csv'
+
+begin
+
+  opts = Slop.parse(strict: true, help: true) do
+    banner "Domain Cutover List Hosted Zones, version #{VERSION}\n\nUsage: domain_list_route53 [options]"
+    on 'p', 'profile', '[required] The name of the AWS credential profile to use.', argument: true
+    on 'f', 'file', '[required] The location of the csv file to be tested.', argument: true
+    on 'v', 'version' do
+      puts 'domain cutover, version #{version}'
+      exit 0
+    end
+  end
+
+  opts = Hashie::Mash.new(opts.to_hash)
+
+  # Profile required test
+  raise 'AWS Profile name required!' unless opts.profile?
+  raise 'File to be tested.' unless opts.file?
+
+  api = DevopsApi.new(opts.profile)
+
+  lines = IO.readlines(File.expand_path("#{opts.file_path}"))
+  domains = lines.map{ |l| l.gsub('http://', '').gsub('/', '') }
+
+  hz_list = api.get_hosted_zone_list
+  hz_list.select!{ |hz| hz[:name].split('.').size == 3 }
+
+require 'httpclient'
+require 'open-uri'
+
+URL = 'http://www.example.org'
+
+httpc = HTTPClient.new
+resp = httpc.get(URL)
+puts resp.header['Location']
+>> http://www.iana.org/domains/example/
+
+open(URL) do |resp|
+  puts resp.base_uri.to_s
+end
+>> http://www.iana.org/domains/example/
+
+
+rescue => e
+  puts ''
+  puts e.message
+  puts ''
+end

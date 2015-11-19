@@ -1,0 +1,54 @@
+---
+ttl_seconds: 60
+hosted_zones:
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  - dnsname: 1051nuevomexico.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: local.univision.com.
+    alias_target:
+    type: CNAME
+  - dnsname: 921fresno.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: local.univision.com.
+    alias_target:
+    type: CNAME
+  - dnsname: buenomalafeo.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: local.univision.com.
+    alias_target:
+    type: CNAME
+  - dnsname: m.1051nuevomexico.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uimprod.smartpathlink.com.
+    alias_target:
+    type: CNAME
+  - dnsname: m.921fresno.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uimprod.smartpathlink.com.
+    alias_target:
+    type: CNAME
+  - dnsname: m.buenomalafeo.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uimprod.smartpathlink.com.
+    alias_target:
+    type: CNAME
+  - dnsname: radioinformativa.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: local.univision.com.
+    alias_target:
+    type: CNAME

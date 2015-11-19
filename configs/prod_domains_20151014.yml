@@ -1,0 +1,87 @@
+---
+ttl_seconds: 60
+hosted_zones:
+# - id: "/hostedzone/Z1GT5PV6ATEFLU"
+# domains:
+  # - dnsname: noticias.univision.mobi.
+  #   resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  #   resource_records:
+  #     value: 64.14.58.89
+  #     alias_target:
+  #     type: A
+  # - dnsname: m.noticias.univision.mobi.
+  #   resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  #   resource_records: !ruby/array:Aws::Xml::DefaultList []
+  #     alias_target:
+  #       hosted_zone_id: Z35SXDOTRQ7X7K
+  #       dns_name: dualstack.univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  #       evaluate_target_health: false
+  #     type: A
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  - dnsname: autos.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www2.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: dinero.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www2.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: health.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www2.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: news.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www2.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: noticias.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: h.www.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: m.autos.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: uimprod.smartpathlink.com.
+      alias_target:
+      type: CNAME
+  - dnsname: m.dinero.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: uimprod.smartpathlink.com.
+      alias_target:
+      type: CNAME
+  - dnsname: m.news.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: uimprod.smartpathlink.com.
+      alias_target:
+      type: CNAME
+  - dnsname: m.noticias.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: uimprod.smartpathlink.com.
+      alias_target:
+      type: CNAME
+  - dnsname: tecnologia.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www2.univision.com.
+      alias_target:
+      type: CNAME
+  - dnsname: wires.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+      value: www3.univision.com.
+      alias_target:
+      type: CNAME

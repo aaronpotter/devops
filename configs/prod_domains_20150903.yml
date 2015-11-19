@@ -1,0 +1,44 @@
+---
+ttl_seconds: 60
+hosted_zones:
+- id: "/hostedzone/Z1PU2N3W0LJTNW"
+  domains:
+  # - dnsname: api.univision.com.
+  #   resource: univision-feed-2-1627751539.us-east-1.elb.amazonaws.com.
+  #   resource_records:
+  #   - !ruby/struct:Aws::Route53::Types::ResourceRecord
+  #     value: 64.14.58.95
+  #   alias_target:
+  #   type: A
+  - dnsname: videos.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    alias_target:
+    type: CNAME
+  - dnsname: mvideos.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uvideos.prod.univision.psdops.com.
+    alias_target:
+    type: CNAME
+- id: "/hostedzone/Z3AJU82UHYQUG9"
+  domains:
+  - dnsname: beta.uvideos.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uvideos.prod.univision.psdops.com.
+    alias_target:
+    type: CNAME
+- id: "/hostedzone/Z1GT5PV6ATEFLU"
+  domains:
+  - dnsname: videos.univision.mobi.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+    resource_records:
+    - !ruby/struct:Aws::Route53::Types::ResourceRecord
+      value: uvideos.prod.univision.psdops.com.
+    alias_target:
+    type: CNAME

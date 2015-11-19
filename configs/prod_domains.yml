@@ -1,0 +1,25 @@
+---
+
+ttl_seconds: 60
+domains:
+  -
+    dnsname: casa.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname:  cocina.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname:  cine.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname: m.casa.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname:  m.cocina.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname:  m.cine.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
+  -
+    dnsname:  recipe.univision.com.
+    resource: univision-web-2-1444712993.us-east-1.elb.amazonaws.com.
