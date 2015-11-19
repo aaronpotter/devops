@@ -1,0 +1,472 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template to launch UIMAPI App setup",
+    "Parameters": {
+		"VpcId": {
+            "Default": "vpc-45ef6b20",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+        "ApacheSubnetId1": {
+            "Type": "String",
+            "Description": "The target Subnet of Apache-Server",
+            "Default": "subnet-e012f5cb"
+        },
+        "ApacheSubnetId2": {
+            "Type": "String",
+            "Description": "The target Subnet of Apache-Server",
+            "Default": "subnet-9508d2e2"
+        },
+        "ApacheImageId": {
+            "Description": "The target AMI id of Apache-Server to be launched",
+            "Type": "String",
+            "Default": "ami-5034a538"
+        },
+        "ApacheInstanceType": {
+            "Description": "The target EC2 instance type for Apache-server, please refer http://aws.amazon.com/ec2/instance-types/ and select appropriately.",
+            "Type": "String",
+            "Default": "m3.large",
+            "AllowedValues": [
+                "t1.micro",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m3.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "cc1.4xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "It should be a valid EC2 instance type."
+        },
+        "ApacheKeyName": {
+            "Description": "The target KeyName which will be attached to the Apache-server instance to be connected securely",
+            "Type": "String",
+            "Default": "hostingoperations",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[-_ a-zA-Z0-9]*",
+            "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores."
+        },
+        "ApacheSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to Apache-server(s), comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-d36863b6"
+        },
+        "ApacheTagNameOne": {
+            "Description": "The name of UIAPI Apache-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-uimapi-1"
+        },
+        "ApacheTagNameTwo": {
+            "Description": "The name of UIMAPI Apache-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-uimapi-2"
+        },
+        "AWSDefaultRegion": {
+            "Description": "Default Region for AWS ",
+            "Type": "String",
+            "Default": "us-east-1"
+        },
+        "CacheSubnets": {
+            "Default": "subnet-e012f5cb,subnet-9508d2e2",
+            "Type": "CommaDelimitedList",
+            "Description": "The list of SubnetIds for the CacheCluster, you need at least 2 subnets in different availability zones"
+        },
+        "CacheNodeType": {
+            "Default": "cache.t2.small",
+            "Description": "The compute and memory capacity of the nodes in the Cache Cluster",
+            "Type": "String",
+            "AllowedValues": [
+                "cache.t1.micro",
+                "cache.t2.small",
+                "cache.m1.medium",
+                "cache.m1.large",
+                "cache.m1.xlarge",
+                "cache.m2.xlarge",
+                "cache.m2.2xlarge",
+                "cache.m2.4xlarge",
+                "cache.m3.xlarge",
+                "cache.m3.2xlarge",
+                "cache.c1.xlarge"
+            ],
+            "ConstraintDescription": "must select a valid Cache Node type."
+        },
+        "NumberOfCacheNodes": {
+            "Default": "2",
+            "Description": "The number of Cache Nodes the Cache Cluster should have",
+            "Type": "Number",
+            "MinValue": "1",
+            "MaxValue": "10",
+            "ConstraintDescription": "must be between 1 and 10."
+        },
+        "CacheSecurityGroup": {
+            "Default": "sg-d36863b6",
+            "Description": "The EC2 security group that contains instances that need access to the cache cluster nodes",
+            "Type": "String"
+        },
+        "ClusterName": {
+            "Default": "uimapi-memcache",
+            "Description": "The target cluster name",
+            "Type": "String"
+        },
+        "ScheduleTag": {
+            "Description": "The Schedule Tag for the EC2 Instances",
+            "Type": "String",
+            "Default": "247"
+        }
+    },
+    "Resources": {
+        "S3AccessRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "S3Access",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:Get*",
+                                        "s3:List*",
+                                        "elasticache:DescribeCacheClusters"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "S3AccessInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "S3AccessRole"
+                    }
+                ]
+            }
+        },
+        "CacheSubnetGroup": {
+            "Type": "AWS::ElastiCache::SubnetGroup",
+            "Properties": {
+                "Description": "Subnets available for the ElastiCache Cluster",
+                "SubnetIds": {
+                    "Ref": "CacheSubnets"
+                }
+            }
+        },
+        "CacheCluster": {
+            "Type": "AWS::ElastiCache::CacheCluster",
+            "Properties": {
+                "CacheSubnetGroupName": {
+                    "Ref": "CacheSubnetGroup"
+                },
+                "CacheNodeType": {
+                    "Ref": "CacheNodeType"
+                },
+                "ClusterName": {
+                    "Ref": "ClusterName"
+                },
+                "VpcSecurityGroupIds": [
+                    {
+                        "Ref": "CacheSecurityGroup"
+                    }
+                ],
+                "Engine": "memcached",
+                "NumCacheNodes": {
+                    "Ref": "NumberOfCacheNodes"
+                }
+            }
+        },
+        "UgcApacheInstanceOne": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "ApacheImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "ApacheSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "ApacheSubnetId1"
+                },
+                "InstanceType": {
+                    "Ref": "ApacheInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "ApacheKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "ApacheTagNameOne"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod VPC"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/ugcLog\n",
+								"HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+                                "/bin/echo \"STARTING THE UGC APACHE SERVER ONE\" >> /cust/ugcLog/apache.log 2>&1\n",
+                                "sed -i \"s/AWS_DB_HOST/pmys605.cabxijsx9suw.us-east-1.rds.amazonaws.com/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+								"sed -i \"s/RT_USER/rt_ugc_02/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+								"sed -i \"s/RT_PASSWORD/XXXXXX/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/\" /cust/app/apache2/conf/httpd.conf >> /cust/ugcLog/apache.log 2>&1\n",
+								"export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+								"/bin/rm -rf /root/.aws\n",
+								"/bin/rm -f /root/.s3cfg\n",
+								"echo \"[Credentials]\" > /root/.boto\n",
+								"echo \"aws_access_key_id = AKIAIIFAPELNYLEBESJQ\" >> /root/.boto\n",
+								"echo \"aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" >> /root/.boto\n",
+                                "/usr/bin/aws s3 cp s3://uim-prod/aws/appl/uimapi/uimapi.tar  /tmp/uimapi.tar >> /cust/ugcLog/uimapi-s3.log 2>&1\n",
+                                "su -l ugcphp -c 'tar -C /cust/home/ugcphp/HOLD/ -xvf /tmp/uimapi.tar; /cust/home/ugcphp/bin/deploy_uimapi.sh' >> /cust/ugcLog/uimapi-deploy.log 2>&1\n",
+                                "/usr/bin/aws elasticache describe-cache-clusters --cache-cluster-id ",
+                                {
+                                    "Ref": "ClusterName"
+                                },
+                                " --show-cache-node-info --output text | grep ENDPOINT >> /cust/ugcLog/cache.log 2>&1\n",
+                                "ELASTIC_CACHE1=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==1 {print $2}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE2=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==2 {print $2}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_PORT=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==1 {print $3}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_NODE1=\"$ELASTIC_CACHE1:$ELASTIC_CACHE_PORT\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_NODE2=\"$ELASTIC_CACHE2:$ELASTIC_CACHE_PORT\" >> /cust/ugcLog/cache.txt\n",
+                                "echo $ELASTIC_CACHE1 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE2 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_PORT >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_NODE1 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_NODE2 >> /cust/ugcLog/cache_value.log\n",
+                                "sed -i \"s/AWS_MEMCACHE1/$ELASTIC_CACHE_NODE1/g\" /cust/app/apache2/sites/uimapi/application/configs/application.xml >> /cust/ugcLog/memcache.log 2>&1\n",
+                                "sed -i \"s/AWS_MEMCACHE2/$ELASTIC_CACHE_NODE2/g\" /cust/app/apache2/sites/uimapi/application/configs/application.xml >> /cust/ugcLog/memcache.log 2>&1\n",
+                                "/usr/sbin/apachectl start >> /cust/ugcLog/apache.log 2>&1\n",
+                                "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                "\"Reason\" : \"The ApacheInstanceOne is ready\",",
+                                "\"UniqueId\" : \"ApacheInstanceOne\",",
+                                "\"Data\" : \"Done\"}' ",
+                                "\"",
+                                {
+                                    "Ref": "WaitForApacheInstanceOneWaitHandle"
+                                },
+                                "\"\n"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "DependsOn": "CacheCluster"
+        },
+        "WaitForApacheInstanceOneWaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle",
+            "Properties": {}
+        },
+        "WaitForApacheInstanceOne": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "Properties": {
+                "Handle": {
+                    "Ref": "WaitForApacheInstanceOneWaitHandle"
+                },
+                "Timeout": "1500"
+            }
+        },
+        "UgcApacheInstanceTwo": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "ApacheImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "ApacheSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "ApacheSubnetId2"
+                },
+                "InstanceType": {
+                    "Ref": "ApacheInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "ApacheKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "ApacheTagNameTwo"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod VPC"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/ugcLog\n",
+								"HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+                                "/bin/echo \"STARTING THE UGC APACHE SERVER TWO\" >> /cust/ugcLog/apache.log 2>&1\n",
+                                "sed -i \"s/AWS_DB_HOST/pmys605.cabxijsx9suw.us-east-1.rds.amazonaws.com/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+								"sed -i \"s/RT_USER/rt_ugc_02/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+								"sed -i \"s/RT_PASSWORD/XXXXXX/\" /cust/app/apache2/conf/vhost/uimapi.conf >> /cust/ugcLog/dbinfo.log 2>&1\n",
+								"sed -i \"s/HOSTNAME/$HOSTNAME/\" /cust/app/apache2/conf/httpd.conf >> /cust/ugcLog/apache.log 2>&1\n",
+                                "export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+								"/bin/rm -rf /root/.aws\n",
+								"/bin/rm -f /root/.s3cfg\n",
+								"echo \"[Credentials]\" > /root/.boto\n",
+								"echo \"aws_access_key_id = AKIAIIFAPELNYLEBESJQ\" >> /root/.boto\n",
+								"echo \"aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" >> /root/.boto\n",
+                                "/usr/bin/aws s3 cp s3://uim-prod/aws/appl/uimapi/uimapi.tar  /tmp/uimapi.tar >> /cust/ugcLog/uimapi-s3.log 2>&1\n",
+                                "su -l ugcphp -c 'tar -C /cust/home/ugcphp/HOLD/ -xvf /tmp/uimapi.tar; /cust/home/ugcphp/bin/deploy_uimapi.sh' >> /cust/ugcLog/uimapi-deploy.log 2>&1\n",
+                                "/usr/bin/aws elasticache describe-cache-clusters --cache-cluster-id ",
+                                {
+                                    "Ref": "ClusterName"
+                                },
+                                " --show-cache-node-info --output text | grep ENDPOINT >> /cust/ugcLog/cache.log 2>&1\n",
+                                "ELASTIC_CACHE1=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==1 {print $2}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE2=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==2 {print $2}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_PORT=\"$(cat /cust/ugcLog/cache.log | awk 'FNR==1 {print $3}')\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_NODE1=\"$ELASTIC_CACHE1:$ELASTIC_CACHE_PORT\" >> /cust/ugcLog/cache.txt\n",
+                                "ELASTIC_CACHE_NODE2=\"$ELASTIC_CACHE2:$ELASTIC_CACHE_PORT\" >> /cust/ugcLog/cache.txt\n",
+                                "echo $ELASTIC_CACHE1 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE2 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_PORT >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_NODE1 >> /cust/ugcLog/cache_value.log\n",
+                                "echo $ELASTIC_CACHE_NODE2 >> /cust/ugcLog/cache_value.log\n",
+                                "sed -i \"s/AWS_MEMCACHE1/$ELASTIC_CACHE_NODE1/g\" /cust/app/apache2/sites/uimapi/application/configs/application.xml >> /cust/ugcLog/memcache.log 2>&1\n",
+                                "sed -i \"s/AWS_MEMCACHE2/$ELASTIC_CACHE_NODE2/g\" /cust/app/apache2/sites/uimapi/application/configs/application.xml >> /cust/ugcLog/memcache.log 2>&1\n",
+                                "/usr/sbin/apachectl start >> /cust/ugcLog/apache.log 2>&1\n",
+                                "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                "\"Reason\" : \"The ApacheInstanceTwo is ready\",",
+                                "\"UniqueId\" : \"ApacheInstanceTwo\",",
+                                "\"Data\" : \"Done\"}' ",
+                                "\"",
+                                {
+                                    "Ref": "WaitForApacheInstanceTwoWaitHandle"
+                                },
+                                "\"\n"
+                            ]
+                        ]
+                    }
+                }
+            },
+            "DependsOn": "CacheCluster"
+        },
+        "WaitForApacheInstanceTwoWaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle",
+            "Properties": {}
+        },
+        "WaitForApacheInstanceTwo": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "Properties": {
+                "Handle": {
+                    "Ref": "WaitForApacheInstanceTwoWaitHandle"
+                },
+                "Timeout": "1500"
+            }
+        }
+    },
+    "Outputs": {
+        "UgcApacheInstanceOne": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "UgcApacheInstanceOne",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of UGC Apache Server 1"
+        },
+        "UgcApacheInstanceTwo": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "UgcApacheInstanceTwo",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of UGC Apache Server 2"
+        },
+        "S3AccessIamRole": {
+            "Value": {
+                "Ref": "S3AccessRole"
+            },
+            "Description": "The target IAM role for EC2 instance to access S3 bucket"
+        },
+        "ApacheInstanceId1": {
+            "Value": {
+                "Ref": "UgcApacheInstanceOne"
+            },
+            "Description": "Instance Id of UGC Apache Instance One"
+        },
+        "ApacheInstanceId2": {
+            "Value": {
+                "Ref": "UgcApacheInstanceTwo"
+            },
+            "Description": "Instance Id of UGC Apache Instance Two"
+        }
+    }
+}

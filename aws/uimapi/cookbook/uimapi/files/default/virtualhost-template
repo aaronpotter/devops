@@ -1,0 +1,14 @@
+
+LogFormat "%h %l %u %t \"%V\" \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{NGUserID}C\" \"%{uv}C\" \"%{mwcuid}C\" \"%{X-Forwarded-For}i\"" uol
+
+<VirtualHost *:80>
+  ServerName temp-server-name
+  ServerAlias  temp-ip-address 
+  DocumentRoot  /var/www/html/sites/live
+  CustomLog logs/access_log combined
+  <Directory "/var/www/html/sites/live">
+       Options Indexes FollowSymLinks
+       AllowOverride None
+       Allow from All
+  </Directory>
+</VirtualHost>

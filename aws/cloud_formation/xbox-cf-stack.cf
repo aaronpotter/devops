@@ -1,0 +1,206 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template to create an XBox Windows Server",
+    "Parameters": {
+		"VpcId": {
+            "Default": "vpc-45ef6b20",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+        "WindowsKeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instance",
+            "Type": "String",
+            "Default": "hostingoperations"
+        },
+        "WindowsSubnetId1": {
+            "Type": "String",
+            "Description": "The target Subnet of Windows-Server",
+            "Default": "subnet-e012f5cb"
+        },
+        "WindowsSubnetId2": {
+            "Type": "String",
+            "Description": "The target Subnet of Windows-Server",
+            "Default": "subnet-9508d2e2"
+        },
+        "WindowsImageId": {
+            "Description": "The target AMI id of Windows Server to be launched",
+            "Type": "String",
+            "Default": "ami-3298495a"
+        },
+        "WindowsInstanceType": {
+            "Description": "The target EC2 instance type for Windows Server please refer http://aws.amazon.com/ec2/instance-types/ and select appropriately.",
+            "Type": "String",
+            "Default": "m3.large",
+            "AllowedValues": [
+                "t1.micro",
+                "m1.small",
+                "m1.medium",
+                "m3.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "cc1.4xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "It should be a valid EC2 instance type."
+        },
+        "WindowsSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to Windows-server(s), comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-d36863b6"
+        },
+        "WindowsTagNameOne": {
+            "Description": "The name of Windows-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-xbox-1"
+        },
+        "WindowsTagNameTwo": {
+            "Description": "The name of Windows-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-xbox-2"
+        },
+        "ScheduleTag": {
+            "Description": "The Schedule Tag for the EC2 Instances",
+            "Type": "String",
+            "Default": "247"
+        }
+    },
+    "Resources": {
+        "XboxWindowsInstanceOne": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": {
+                    "Ref": "WindowsInstanceType"
+                },
+                "SubnetId": {
+                    "Ref": "WindowsSubnetId1"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "WindowsSecurityGroupIds"
+                },
+                "KeyName": {
+                    "Ref": "WindowsKeyName"
+                },
+                "ImageId": {
+                    "Ref": "WindowsImageId"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "WindowsTagNameOne"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod VPC"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "<script>\n",
+                                "mkdir C:\\Univision-test\n",
+                                "</script>"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "XboxWindowsInstanceTwo": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "InstanceType": {
+                    "Ref": "WindowsInstanceType"
+                },
+                "SubnetId": {
+                    "Ref": "WindowsSubnetId2"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "WindowsSecurityGroupIds"
+                },
+                "KeyName": {
+                    "Ref": "WindowsKeyName"
+                },
+                "ImageId": {
+                    "Ref": "WindowsImageId"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "WindowsTagNameTwo"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod VPC"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "<script>\n",
+                                "mkdir C:\\Univision-test\n",
+                                "</script>"
+                            ]
+                        ]
+                    }
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "XboxWindowsInstanceOne": {
+            "Description": "Private IP address of the newly created XboxWindowsServer One",
+            "Value": {
+                "Fn::GetAtt": [
+                    "XboxWindowsInstanceOne",
+                    "PrivateIp"
+                ]
+            }
+        },
+        "XboxWindowsInstanceTwo": {
+            "Description": "Private IP address of the newly created XboxWindowsServer Two",
+            "Value": {
+                "Fn::GetAtt": [
+                    "XboxWindowsInstanceTwo",
+                    "PrivateIp"
+                ]
+            }
+        },
+        "WindowsInstanceId1": {
+            "Value": {
+                "Ref": "XboxWindowsInstanceOne"
+            },
+            "Description": "Instance Id of XBOX Windows Instance One"
+        },
+        "WindowsInstanceId2": {
+            "Value": {
+                "Ref": "XboxWindowsInstanceTwo"
+            },
+            "Description": "Instance Id of XBOX Windows Instance Two"
+        }
+    }
+}

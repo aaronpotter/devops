@@ -1,0 +1,322 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template to launch Oracle",
+    "Parameters": {
+        "ELBSubnetId": {
+            "Type": "CommaDelimitedList",
+            "Description": "The target SubnetIds (comma separated for ex: subnet-b84f65cc,subnet-e11562c9)",
+            "Default": "subnet-96622ffc"
+        },
+        "ELBSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to ELB, comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-eb588184"
+        },
+        "ELBScheme": {
+            "Description": "The ELB scheme (internal or internet-facing)",
+            "Type": "String",
+            "Default": "internet-facing"
+        },
+        "VpcId": {
+            "Default": "vpc-36b20a53",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+        "Subnets": {
+            "Default": "subnet-96622ffc",
+            "Type": "CommaDelimitedList",
+            "Description": "The list of SubnetIds, for at least two Availability Zones in the region in your Virtual Private Cloud (VPC)"
+        },
+        "DBName": {
+            "Default": "CRMRDS",
+            "Description": "The database name",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+        },
+        "DBInstanceName": {
+            "Default": "crmInRDS",
+            "NoEcho": "true",
+            "Description": "DBInstanceName",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "16",
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+        },
+        "DBUser": {
+            "Default": "crmmaster",
+            "NoEcho": "true",
+            "Description": "The database admin account username",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "16",
+            "AllowedPattern": "[a-zA-Z][a-zA-Z0-9]*",
+            "ConstraintDescription": "must begin with a letter and contain only alphanumeric characters."
+        },
+        "DBPassword": {
+            "Default": "mastercrm",
+            "NoEcho": "true",
+            "Description": "The database admin account password",
+            "Type": "String",
+            "MinLength": "1",
+            "MaxLength": "41",
+            "AllowedPattern": "[a-zA-Z0-9]*",
+            "ConstraintDescription": "must contain only alphanumeric characters."
+        },
+        "DBAllocatedStorage": {
+            "Default": "40",
+            "Description": "The size of the database (Gb)",
+            "Type": "Number",
+            "MinValue": "5",
+            "MaxValue": "1024",
+            "ConstraintDescription": "must be between 5 and 1024Gb."
+        },
+        "DBInstanceClass": {
+            "Default": "db.m3.xlarge",
+            "Description": "The database instance type",
+            "Type": "String",
+            "AllowedValues": [
+                "db.t1.micro",
+                "db.m1.small",
+                "db.m1.medium",
+                "db.m1.large",
+                "db.m1.xlarge",
+                "db.m2.xlarge",
+                "db.m2.2xlarge",
+                "db.m2.4xlarge",
+                "db.m3.medium",
+                "db.m3.xlarge",
+                "db.cr1.8xlarge"
+            ],
+            "ConstraintDescription": "must select a valid database instance type."
+        },
+        "VPCSecurityGroup": {
+            "Default": "sg-0dc5f568",
+            "Description": "The EC2 security group that contains instances that need access to the database",
+            "Type": "String"
+        },
+        "BackupRetentionPeriod": {
+            "Description": "The number of days for which automated backups are retained. Setting this parameter to a positive number enables backups. Setting this parameter to 0 disables automated backups",
+            "Type": "Number",
+            "Default": "1",
+            "MinValue": "0",
+            "MaxValue": "35"
+        },
+        "MultiAZ": {
+            "Description": "Multi-AZ Oracle database",
+            "Type": "String",
+            "Default": "false",
+            "AllowedValues": [
+                "true",
+                "false"
+            ],
+            "ConstraintDescription": "must be true or false."
+        },
+        "UnvHostedZone": {
+            "Type": "String",
+            "Description": "The DNS name of an existing Amazon Route 53 hosted zone for Univision",
+            "Default": "qa.univision.com"
+        },
+        "OracleDBDNS": {
+            "Description": "The target DNS (prefix) points to Oracle DB IP Address launched in Availability Zone-1 (us-east-1e)",
+            "Type": "String",
+            "Default": "rdsoracle"
+        },
+        "OraSnapshotIdentifier": {
+            "Description": "The target snapshot which needs to be restored in to this RDS",
+            "Type": "String",
+            "Default": "crm-rds-4-dev-2014-10-28"
+        },
+        "AWSDefaultRegion": {
+            "Description": "Default Region for AWS ",
+            "Type": "String",
+            "Default": "us-east-1"
+        },
+        "ScheduleTag": {
+            "Description": "The Schedule Tag for the EC2 Instances",
+            "Type": "String",
+            "Default": "9to6"
+        }
+    },
+    "Resources": {
+        "S3AccessRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "S3Access",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:Get*",
+                                        "s3:List*"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "S3AccessInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "S3AccessRole"
+                    }
+                ]
+            }
+        },
+        "OraSubnetGroup": {
+            "Type": "AWS::RDS::DBSubnetGroup",
+            "Properties": {
+                "DBSubnetGroupDescription": "Subnets available for the RDS DB Instance",
+                "SubnetIds": {
+                    "Ref": "Subnets"
+                }
+            }
+        },
+        "OracleDB": {
+            "Type": "AWS::RDS::DBInstance",
+            "Properties": {
+                "AllocatedStorage": {
+                    "Ref": "DBAllocatedStorage"
+                },
+                "DBInstanceClass": {
+                    "Ref": "DBInstanceClass"
+                },
+                "Engine": "oracle-se1",
+                "EngineVersion": "11.2.0.2.v7",
+                "MasterUsername": {
+                    "Ref": "DBUser"
+                },
+                "MasterUserPassword": {
+                    "Ref": "DBPassword"
+                },
+                "DBSubnetGroupName": {
+                    "Ref": "OraSubnetGroup"
+                },
+                "DBInstanceIdentifier": {
+                    "Ref": "DBInstanceName"
+                },
+                "VPCSecurityGroups": [
+                    {
+                        "Ref": "VPCSecurityGroup"
+                    }
+                ],
+                "DBSnapshotIdentifier": {
+                    "Ref": "OraSnapshotIdentifier"
+                },
+                "MultiAZ": {
+                    "Ref": "MultiAZ"
+                },
+                "LicenseModel":"license-included",
+                "BackupRetentionPeriod": {
+                    "Ref": "BackupRetentionPeriod"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "DR-Oracle-database"
+                    }
+                ]
+            }
+        },
+        "OracleDBDNSRecord": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "HostedZoneName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Comment": "DNS name for my instance.",
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "OracleDBDNS"
+                            },
+                            ".",
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Type": "CNAME",
+                "TTL": "3600",
+                "ResourceRecords": [
+                    {
+                        "Fn::GetAtt": [
+                            "OracleDB",
+                            "Endpoint.Address"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "OracleJDBCConnectionString": {
+            "Description": "JDBC connection string for the Oracle database",
+            "Value": {
+                "Fn::Join": [
+                    "",
+                    [
+                        "jdbc:oracle:thin:@",
+                        {
+                            "Fn::GetAtt": [
+                                "OracleDB",
+                                "Endpoint.Address"
+                            ]
+                        },
+                        ":",
+                        {
+                            "Fn::GetAtt": [
+                                "OracleDB",
+                                "Endpoint.Port"
+                            ]
+                        },
+                        ":",
+                        {
+                            "Ref": "DBName"
+                        }
+                    ]
+                ]
+            }
+        }
+    }
+}

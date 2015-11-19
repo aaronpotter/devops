@@ -1,0 +1,36 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-east-1",
+    "source_ami": "ami-d05e75b8",
+    "ami_block_device_mappings": [{
+        "volume_type": "standard",
+        "volume_size": "50",
+        "device_name": "/dev/sdb",
+        "delete_on_termination": "true"
+      }],
+    "instance_type": "t2.medium",
+    "ssh_username": "ubuntu",
+    "ssh_keypair_name": "DigitalAppSupport",
+    "temporary_key_pair_name": "tempkey",
+    "ami_name": "packer_uimapi {{timestamp}}",
+    "vpc_id": "vpc-45ef6b20",
+    "subnet_id": "subnet-e012f5cb",
+    "security_group_id": "sg-1a364d7e",
+    "tags": {
+    "OS_Version": "Ubuntu",
+    "Release": "Latest"
+    }
+  }],
+  "provisioners": [{
+   "type": "chef-solo",
+   "cookbook_paths": ["/cust/home/apotter/checkouts/univision-digital-chef/uimapi/cookbook"],
+   "run_list": ["uimapi::default"] 
+  }]
+}

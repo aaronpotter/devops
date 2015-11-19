@@ -1,0 +1,430 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template to launch Quova APP Server",
+    "Parameters": {
+		"VpcId": {
+            "Default": "vpc-45ef6b20",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+        "VarnishSubnetId1": {
+            "Type": "String",
+            "Description": "The target Subnet of Varnish Server in 1c Availability zone",
+            "Default": "subnet-e012f5cb"
+        },
+        "VarnishSubnetId2": {
+            "Type": "String",
+            "Description": "The target Subnet of Varnish Server in 1b Availability Zone",
+            "Default": "subnet-9508d2e2"
+        },
+        "VarnishImageId": {
+            "Description": "The target AMI id of Varnish-Server to be launched",
+            "Type": "String",
+            "Default": "ami-30984958"
+        },
+        "VarnishInstanceType": {
+            "Description": "The target EC2 instance type for Varnish-server, please refer http://aws.amazon.com/ec2/instance-types/ and select appropriately.",
+            "Type": "String",
+            "Default": "m3.xlarge",
+            "AllowedValues": [
+                "t1.micro",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "cc1.4xlarge",
+                "cc2.8xlarge",
+                "m3.large",
+                "m3.xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "It should be a valid EC2 instance type."
+        },
+        "VarnishKeyName": {
+            "Description": "The target KeyName which will be attached to the Varnish-server instance to be connected securely",
+            "Type": "String",
+            "Default": "hostingoperations",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[-_ a-zA-Z0-9]*",
+            "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores."
+        },
+        "VarnishSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to Varnish-server(s), comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-d36863b6"
+        },
+        "VarnishTagNameOne": {
+            "Description": "The name of Quova Varnish-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-quova-1"
+        },
+        "VarnishTagNameTwo": {
+            "Description": "The name of Quova Varnish-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-quova-2"
+        },
+        "ScheduleTag": {
+            "Description": "The Schedule Tag for the EC2 Instances",
+            "Type": "String",
+            "Default": "24/7"
+        },
+        "UnvHostedZone": {
+            "Type": "String",
+            "Description": "The DNS name of an existing Amazon Route 53 hosted zone for Univision",
+            "Default": "awsprd.univision.com"
+        },
+        "QuovaVarnishInstanceOneDNS": {
+            "Description": "The target DNS (prefix) points to Quova Server 1 IP Address launched in Availability Zone-1 (us-east-1e)",
+            "Type": "String",
+            "Default": "geodds7-a"
+        },
+        "QuovaVarnishInstanceTwoDNS": {
+            "Description": "The target DNS (prefix) points to Quova Server 2 IP Address launched in Availability Zone-2 (us-east-1c)",
+            "Type": "String",
+            "Default": "geodds7-b"
+        }
+    },
+    "Resources": {
+        "S3AccessRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "S3Access",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:Get*",
+                                        "s3:List*"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "S3AccessInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "S3AccessRole"
+                    }
+                ]
+            }
+        },
+        "QuovaVarnishInstanceOne": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "VarnishImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "VarnishSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "VarnishSubnetId1"
+                },
+                "InstanceType": {
+                    "Ref": "VarnishInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "VarnishKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "VarnishTagNameOne"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/awslog\n",
+                                "/bin/echo \"QUOVA SERVER ONE\" >> /cust/awslog/quova.log 2>&1\n",
+                                "rm -f /cust/app/tomcat/quova/conf/license_univision.txt >> /cust/awslog/quova.log 2>&1\n",
+                                "ln -s /cust/app/tomcat/quova/conf/license_univision_DDS6353_exp2015-Feb-07.txt /cust/app/tomcat/quova/conf/license_univision.txt >> /cust/awslog/quova.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/varnish/default.vcl\n",
+                                "/sbin/chkconfig quova on >> /cust/awslog/quova.log 2>&1\n",
+                                "/sbin/chkconfig varnish on >> /cust/awslog/varnish.log 2>&1\n",
+                                "/sbin/service quova start >> /cust/awslog/quova.log 2>&1\n",
+                                "/sbin/service varnish start >> /cust/awslog/varnish.log 2>&1\n",
+                                "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                "\"Reason\" : \"The VarnishInstanceOne is ready\",",
+                                "\"UniqueId\" : \"VarnishInstanceOne\",",
+                                "\"Data\" : \"Done\"}' ",
+                                "\"",
+                                {
+                                    "Ref": "WaitForVarnishInstanceOneWaitHandle"
+                                },
+                                "\"\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "WaitForVarnishInstanceOneWaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle",
+            "Properties": {}
+        },
+        "WaitForVarnishInstanceOne": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "Properties": {
+                "Handle": {
+                    "Ref": "WaitForVarnishInstanceOneWaitHandle"
+                },
+                "Timeout": "1500"
+            }
+        },
+        "QuovaVarnishInstanceTwo": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "VarnishImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "VarnishSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "VarnishSubnetId2"
+                },
+                "InstanceType": {
+                    "Ref": "VarnishInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "VarnishKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "VarnishTagNameTwo"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/awslog\n",
+                                "/bin/echo \"QUOVA SERVER TWO\" > /cust/awslog/quova.log 2>&1\n",
+                                "rm -f /cust/app/tomcat/quova/conf/license_univision.txt /cust/awslog/quova.log\n",
+                                "ln -s /cust/app/tomcat/quova/conf/license_univision_DDS6794_exp2015-Feb-07.txt /cust/app/tomcat/quova/conf/license_univision.txt >> /cust/awslog/quova.log\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/varnish/default.vcl\n",
+                                "/sbin/chkconfig quova on >> /cust/awslog/quova.log 2>&1\n",
+                                "/sbin/chkconfig varnish on >> /cust/awslog/varnish.log 2>&1\n",
+                                "/sbin/service quova start >> /cust/awslog/quova.log 2>&1\n",
+                                "/sbin/service varnish start >> /cust/awslog/varnish.log 2>&1\n",
+                                "curl -X PUT -H 'Content-Type:' --data-binary '{\"Status\" : \"SUCCESS\",",
+                                "\"Reason\" : \"The VarnishInstanceTwo is ready\",",
+                                "\"UniqueId\" : \"VarnishInstanceTwo\",",
+                                "\"Data\" : \"Done\"}' ",
+                                "\"",
+                                {
+                                    "Ref": "WaitForVarnishInstanceTwoWaitHandle"
+                                },
+                                "\"\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "WaitForVarnishInstanceTwoWaitHandle": {
+            "Type": "AWS::CloudFormation::WaitConditionHandle",
+            "Properties": {}
+        },
+        "WaitForVarnishInstanceTwo": {
+            "Type": "AWS::CloudFormation::WaitCondition",
+            "Properties": {
+                "Handle": {
+                    "Ref": "WaitForVarnishInstanceTwoWaitHandle"
+                },
+                "Timeout": "1500"
+            }
+        },
+        "QuovaVarnishInstanceOneDNSRecord": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "HostedZoneName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Comment": "DNS name for my instance.",
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "QuovaVarnishInstanceOneDNS"
+                            },
+                            ".",
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Type": "A",
+                "TTL": "600",
+                "ResourceRecords": [
+                    {
+                        "Fn::GetAtt": [
+                            "QuovaVarnishInstanceOne",
+                            "PrivateIp"
+                        ]
+                    }
+                ]
+            }
+        },
+        "QuovaVarnishInstanceTwoDNSRecord": {
+            "Type": "AWS::Route53::RecordSet",
+            "Properties": {
+                "HostedZoneName": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Comment": "DNS name for my instance.",
+                "Name": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            {
+                                "Ref": "QuovaVarnishInstanceTwoDNS"
+                            },
+                            ".",
+                            {
+                                "Ref": "UnvHostedZone"
+                            },
+                            "."
+                        ]
+                    ]
+                },
+                "Type": "A",
+                "TTL": "600",
+                "ResourceRecords": [
+                    {
+                        "Fn::GetAtt": [
+                            "QuovaVarnishInstanceTwo",
+                            "PrivateIp"
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "Outputs": {
+        "QuovaVarnishInstanceOne": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "QuovaVarnishInstanceOne",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Quova Varnish Server 1"
+        },
+        "QuovaVarnishInstanceTwo": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "QuovaVarnishInstanceTwo",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Quova Varnish Server 2"
+        },
+        "S3AccessIamRole": {
+            "Value": {
+                "Ref": "S3AccessRole"
+            },
+            "Description": "The target IAM role for EC2 instance to access S3 bucket"
+        },
+        "VarnishInstanceId1": {
+            "Value": {
+                "Ref": "QuovaVarnishInstanceOne"
+            },
+            "Description": "Instance Id of Varnish Instance One"
+        },
+        "VarnishInstanceId2": {
+            "Value": {
+                "Ref": "QuovaVarnishInstanceTwo"
+            },
+            "Description": "Instance Id of Varnish Instance Two"
+        }
+    }
+}

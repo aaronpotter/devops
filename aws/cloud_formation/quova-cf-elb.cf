@@ -1,0 +1,106 @@
+ {
+	"AWSTemplateFormatVersion": "2010-09-09",
+		
+	"Description": "AWS CloudFormation Template to launch ELB for Quova Application",
+	
+	"Parameters": {
+		"VpcId": {
+            "Default": "vpc-45ef6b20",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+		"ELBSubnetId": {
+            "Type": "CommaDelimitedList",
+            "Description": "The target SubnetIds (comma separated for ex: subnet-748fc219,subnet-4a8fc227)",
+			"Default": "subnet-bdf91d96,subnet-1617b261"
+		},
+		
+		"ELBSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to ELB, comma seperated.",
+            "Type": "CommaDelimitedList",
+			"Default": "sg-e66f6483"           
+		},
+		
+		"AppContextPath": {
+			"Description": "Application Context Path",
+            "Type": "String",
+            "Default": "geodirectory/v1/util/pulse"
+		},
+		
+		"ELBScheme": {
+			"Description": "The ELB scheme (internal or internet-facing)",
+            "Type": "String",
+            "Default": "internet-facing"
+		},
+		
+		"UnvHostedZone" : {
+			"Type" : "String",
+			"Description" : "The DNS name of an existing Amazon Route 53 hosted zone for Univision",
+			"Default": "awsprd.univision.com"
+		},
+		
+		"QuovaELBDNS": {
+            "Description": "The target DNS (prefix) points to Quova ELB",
+            "Type": "String",
+            "Default": "geodds7"
+        }
+	},
+	
+	"Resources": {
+		"ELBName" : {
+			"Type" : "AWS::ElasticLoadBalancing::LoadBalancer",
+			"Properties" : {
+				"Subnets" : {
+                    "Ref": "ELBSubnetId"
+                },
+				"Scheme" : {
+					"Ref": "ELBScheme"
+				},
+				"SecurityGroups" : {
+					"Ref": "ELBSecurityGroupIds"
+				},
+				"Listeners" : [ {
+					"LoadBalancerPort" : "80",
+					"InstancePort" : "80",
+					"Protocol" : "HTTP"
+				} ],
+				"HealthCheck" : {
+					"Target" : { "Fn::Join" : ["", ["HTTP:80/", {"Ref" : "AppContextPath"}] ] },
+					"HealthyThreshold" : "3",
+					"UnhealthyThreshold" : "8",
+					"Interval" : "30",
+					"Timeout" : "15"
+				}
+			}
+		},
+		"ELBDNSRecord" : {
+			"Type" : "AWS::Route53::RecordSet",
+			"Properties" : {
+				"HostedZoneName" : { "Fn::Join" : [ "", [{"Ref" : "UnvHostedZone"}, "." ]]},
+				"Comment" : "CNAME redirect to Quova ELB",
+				"Name" : { "Fn::Join" : [ "", [{"Ref" : "QuovaELBDNS"}, ".", {"Ref" : "UnvHostedZone"}, "."]]},
+				"Type" : "CNAME",
+				"TTL" : "3600",
+				"ResourceRecords" : [ { "Fn::GetAtt" : [ "ELBName", "CanonicalHostedZoneName" ] } ]
+			}
+		}
+	},
+	
+	"Outputs": {
+		"LoadBalancerName" : {
+			"Description" : "The LoadBalancer Name",
+			"Value" : { "Ref": "ELBName" } 
+		},
+		"LoadBalancerDNSName" : {
+			"Description" : "The LoadBalancer DNS Name",
+			"Value" : { "Fn::GetAtt" : [ "ELBName", "DNSName" ] } 
+		},		
+		"ELBUrl" : {
+			"Description" : "The target ELB URL",				
+			"Value" :  { "Fn::Join" : [ "", ["http://", { "Fn::GetAtt" : [ "ELBName", "DNSName" ]}, "/", {"Ref": "AppContextPath"}] ] }
+		}
+    }
+}
+	
+
+

@@ -1,0 +1,790 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template for Apache mod_cluster and Jboss CRM",
+    "Parameters": {
+		"VpcId": {
+            "Default": "vpc-45ef6b20",
+            "Type": "String",
+            "Description": "VpcId of your existing Virtual Private Cloud (VPC)"
+        },
+        "ApacheSubnetId": {
+            "Type": "String",
+            "Description": "The target Subnet of Apache-Server",
+            "Default": "subnet-e012f5cb"
+        },
+        "ApacheImageId": {
+            "Description": "The target AMI id of Apache-Server to be launched",
+            "Type": "String",
+            "Default": "ami-3c31b154"
+        },
+        "ApacheInstanceType": {
+            "Description": "The target EC2 instance type for Apache-server, please refer http://aws.amazon.com/ec2/instance-types/ and select appropriately.",
+            "Type": "String",
+            "Default": "m3.large",
+            "AllowedValues": [
+                "t1.micro",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "m3.large",
+                "m3.xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "cc1.4xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "It should be a valid EC2 instance type."
+        },
+        "ApacheKeyName": {
+            "Description": "The target KeyName which will be attached to the Apache-server instance to be connected securely",
+            "Type": "String",
+            "Default": "hostingoperations",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[-_ a-zA-Z0-9]*",
+            "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores."
+        },
+        "ApacheSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to Apache-server(s), comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-288d934d"
+        },
+        "ApacheTagNameOne": {
+            "Description": "The name of Apache-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-crm-web-1"
+        },
+        "ApacheTagNameTwo": {
+            "Description": "The name of Apache-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-crm-web-2"
+        },
+        "JbossSubnetId": {
+            "Type": "String",
+            "Description": "The target Subnet of Jboss-Server",
+            "Default": "subnet-e012f5cb"
+        },
+        "JbossImageId": {
+            "Description": "The target AMI id of Jboss-Server to be launched",
+            "Type": "String",
+            "Default": "ami-3a31b152"
+        },
+        "JbossInstanceType": {
+            "Description": "The target EC2 instance type for Jboss-server, please refer http://aws.amazon.com/ec2/instance-types/ and select appropriately.",
+            "Type": "String",
+            "Default": "m3.large",
+            "AllowedValues": [
+                "t1.micro",
+                "m1.small",
+                "m1.medium",
+                "m1.large",
+                "m1.xlarge",
+                "m2.xlarge",
+                "m2.2xlarge",
+                "m2.4xlarge",
+                "m3.large",
+                "m3.xlarge",
+                "c1.medium",
+                "c1.xlarge",
+                "cc1.4xlarge",
+                "cc2.8xlarge",
+                "cg1.4xlarge"
+            ],
+            "ConstraintDescription": "It should be a valid EC2 instance type."
+        },
+        "JbossKeyName": {
+            "Description": "The target KeyName which will be attached to the Jboss-server instance to be connected securely",
+            "Type": "String",
+            "Default": "hostingoperations",
+            "MinLength": "1",
+            "MaxLength": "64",
+            "AllowedPattern": "[-_ a-zA-Z0-9]*",
+            "ConstraintDescription": "Can contain only alphanumeric characters, spaces, dashes and underscores."
+        },
+        "JbossSecurityGroupIds": {
+            "Description": "The target Security Group id(s) needs to be attached to Jboss-server(s), comma seperated.",
+            "Type": "CommaDelimitedList",
+            "Default": "sg-288d934d"
+        },
+        "JbossTagNameOne": {
+            "Description": "The name of jboss-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-crm-app-1"
+        },
+        "JbossTagNameTwo": {
+            "Description": "The name of jboss-server(s) for tagging as well as AWS console display.",
+            "Type": "String",
+            "Default": "Prod-crm-app-2"
+        },
+        "S3PingBucketName": {
+            "Description": "The name of S3 bucket for Jboss cluster S3_Ping",
+            "Type": "String",
+            "Default": "s3-ping-cg"
+        },
+        "AppName": {
+            "Description": "The name of WAR file deployed into Jboss",
+            "Type": "String",
+            "Default": "crm"
+        },
+        "AWSDefaultRegion": {
+            "Description": "Default Region for AWS ",
+            "Type": "String",
+            "Default": "us-east-1"
+        },
+        "EnvironmentType": {
+            "Description": "Environment Type of the Machine",
+            "Type": "String",
+            "Default": "aws1e"
+        },
+        "NameSpace": {
+            "Type": "String",
+            "Description": "The target namespace for alarm (i.e application name for ex: crm)",
+            "Default": "crm"
+        },
+        "MetricName": {
+            "Type": "String",
+            "Description": "The name for the alarm's associated metric",
+            "Default": "JBOSS_thread-cnt"
+        },
+        "Period": {
+            "Type": "String",
+            "Description": "The period in seconds over which the specified statistic is applied",
+            "Default": "60"
+        },
+        "AlarmSNSActionARN": {
+            "Type": "String",
+            "Description": "The SNS (ARN) action to execute when this alarm transitions into an ALARM state from any other state.",
+            "Default": "arn:aws:sns:us-east-1:422502408055:custom-auto-scale:dca26d91-9b8e-49e2-8a4f-bbf69b7edfc6"
+        },
+        "Statistic": {
+            "Type": "String",
+            "Description": "The statistic to apply to the alarm's associated metric",
+            "Default": "Average",
+            "AllowedValues": [
+                "SampleCount",
+                "Average",
+                "Sum",
+                "Minimum",
+                "Maximum"
+            ],
+            "ConstraintDescription": "It should be a valid Statistic as AllowedValues"
+        },
+        "Threshold": {
+            "Type": "String",
+            "Description": "The value against which the specified statistic is compared",
+            "Default": "30"
+        },
+        "EvaluationPeriods": {
+            "Type": "String",
+            "Description": "The number of periods over which data is compared to the specified threshold",
+            "Default": "1"
+        },
+        "ComparisonOperator": {
+            "Type": "String",
+            "Description": "The arithmetic operation to use when comparing the specified Statistic and Threshold",
+            "Default": "GreaterThanThreshold",
+            "AllowedValues": [
+                "GreaterThanOrEqualToThreshold",
+                "GreaterThanThreshold",
+                "LessThanThreshold",
+                "LessThanOrEqualToThreshold"
+            ],
+            "ConstraintDescription": "It should be a valid operator as AllowedValues"
+        },
+        "ScheduleTag": {
+            "Description": "The Schedule Tag for the EC2 Instances",
+            "Type": "String",
+            "Default": "247"
+        }
+    },
+    "Resources": {
+        "S3AccessRole": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": [
+                                    "ec2.amazonaws.com"
+                                ]
+                            },
+                            "Action": [
+                                "sts:AssumeRole"
+                            ]
+                        }
+                    ]
+                },
+                "Path": "/",
+                "Policies": [
+                    {
+                        "PolicyName": "S3Access",
+                        "PolicyDocument": {
+                            "Statement": [
+                                {
+                                    "Effect": "Allow",
+                                    "Action": [
+                                        "s3:Get*",
+                                        "s3:List*",
+                                        "cloudwatch:PutMetricData",
+                                        "cloudwatch:ListMetrics",
+                                        "cloudwatch:PutMetricAlarm",
+                                        "cloudwatch:SetAlarmState"
+                                    ],
+                                    "Resource": "*"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        "S3AccessInstanceProfile": {
+            "Type": "AWS::IAM::InstanceProfile",
+            "Properties": {
+                "Path": "/",
+                "Roles": [
+                    {
+                        "Ref": "S3AccessRole"
+                    }
+                ]
+            }
+        },
+        "ApacheModClusterInstanceOne": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "ApacheImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "ApacheSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "ApacheSubnetId"
+                },
+                "InstanceType": {
+                    "Ref": "ApacheInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "ApacheKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "ApacheTagNameOne"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/awslog\n",
+                                "echo UVN_SERVER_ROLE=APACHE\n",
+                                "export UVN_ENV=",
+                                {
+                                    "Ref": "EnvironmentType"
+                                },
+                                "\n",
+                                "echo $UVN_ENV\n",
+                                "export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+                                "HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "DNSDOMAINNAME=\"$(/bin/dnsdomainname)\"\n",
+								"ALLOWEDSUBNET=\"$(/bin/hostname -I | cut -d. -f1-2)\"\n",
+                                "IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+								"sed -i \"s/miembros.uimvdc/miembros/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+								"sed -i \"s/10.205/$ALLOWEDSUBNET/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "sed -i \"s/.DNSDOMAINNAME/$DNSDOMAINNAME/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "/sbin/service httpd restart >> /cust/awslog/httpd.log 2>&1\n",
+                                "/sbin/chkconfig httpd on >> /cust/awslog/httpd.log 2>&1\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "ApacheModClusterInstanceTwo": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "ApacheImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "ApacheSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "ApacheSubnetId"
+                },
+                "InstanceType": {
+                    "Ref": "ApacheInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "ApacheKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "ApacheTagNameTwo"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/awslog\n",
+                                "echo UVN_SERVER_ROLE=APACHE\n",
+                                "export UVN_ENV=",
+                                {
+                                    "Ref": "EnvironmentType"
+                                },
+                                "\n",
+                                "echo $UVN_ENV\n",
+                                "export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+                                "HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "DNSDOMAINNAME=\"$(/bin/dnsdomainname)\"\n",
+								"ALLOWEDSUBNET=\"$(/bin/hostname -I | cut -d. -f1-2)\"\n",
+								"IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+								"sed -i \"s/miembros.uimvdc/miembros.awsprd/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+								"sed -i \"s/10.205/$ALLOWEDSUBNET/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "sed -i \"s/.DNSDOMAINNAME/$DNSDOMAINNAME/g\" /cust/app/apache2/conf/httpd.conf >> /cust/awslog/httpd.log 2>&1\n",
+                                "/sbin/service httpd restart >> /cust/awslog/httpd.log 2>&1\n",
+                                "/sbin/chkconfig httpd on >> /cust/awslog/httpd.log 2>&1\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "JBossClusterInstanceOne": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "JbossImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "JbossSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "JbossSubnetId"
+                },
+                "InstanceType": {
+                    "Ref": "JbossInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "JbossKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "JbossTagNameOne"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/crmLog\n",
+                                "HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "cp /cust/home/jboss/templates/config.HOSTNAME.txt /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+                                "sed -i \"s/IPADDRESS/$IP/g\" /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+                                "export UVN_ENV=",
+                                {
+                                    "Ref": "EnvironmentType"
+                                },
+                                "\n",
+                                "echo $UVN_ENV > /cust/home/jboss/bin/avail_zone.txt\n",
+                                "PROXYLIST=",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "ApacheModClusterInstanceOne",
+                                                    "PrivateIp"
+                                                ]
+                                            },
+                                            ":6666",
+                                            ",",
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "ApacheModClusterInstanceTwo",
+                                                    "PrivateIp"
+                                                ]
+                                            },
+                                            ":6666"
+                                        ]
+                                    ]
+                                },
+                                "\n",
+                                "echo $PROXYLIST >> /cust/home/jboss/bin/proxylist.txt\n",
+								"sed -i \"s/PROXYLIST/$PROXYLIST/g\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/rdsoracle.uimvdc.univision.com/pora624.cabxijsx9suw.us-east-1.rds.amazonaws.com/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/CRMRDS/Pora624/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/crm/pool_crm_01/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/CRMTEST/xxxxxxxxxxxx/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+                                "cp /cust/home/jboss/templates/standalone-full-ha.xml /cust/jboss-eap-6.3/standalone1/configuration/standalone.xml\n",
+                                "cp /cust/home/jboss/templates/standalone-full-ha.xml /cust/jboss-eap-6.3/standalone2/configuration/standalone.xml\n",
+                                "/bin/rm -rf /root/.aws\n",
+								"/bin/rm -f /root/.s3cfg\n",
+								"echo \"[Credentials]\" > /root/.boto\n",
+								"echo \"aws_access_key_id = AKIAIIFAPELNYLEBESJQ\" >> /root/.boto\n",
+								"echo \"aws_secret_access_key = XXXXXXXXXXXXXXXXX\" >> /root/.boto\n",
+								"/usr/bin/aws s3 cp s3://uim-prod/aws/appl/crm/war/crm.war /cust/home/jboss/war/crm.war >> /cust/crmLog/crm-s3.log 2>&1\n",
+                                "su -l jboss -c '/cust/home/jboss/bin/deploy_eap6.sh crm.war",
+                                ">/tmp/deploy_eap6.myjob 2>&1' >> /cust/crmLog/crm-deploy.log 2>&1\n",
+                                "echo hello\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "JBossClusterInstanceTwo": {
+            "Type": "AWS::EC2::Instance",
+            "Properties": {
+                "ImageId": {
+                    "Ref": "JbossImageId"
+                },
+                "SecurityGroupIds": {
+                    "Ref": "JbossSecurityGroupIds"
+                },
+                "SubnetId": {
+                    "Ref": "JbossSubnetId"
+                },
+                "InstanceType": {
+                    "Ref": "JbossInstanceType"
+                },
+                "IamInstanceProfile": {
+                    "Ref": "S3AccessInstanceProfile"
+                },
+                "KeyName": {
+                    "Ref": "JbossKeyName"
+                },
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": {
+                            "Ref": "JbossTagNameTwo"
+                        }
+                    },
+                    {
+                        "Key": "Cost Center",
+                        "Value": "Prod"
+                    },
+                    {
+                        "Key": "Schedule",
+                        "Value": {
+                            "Ref": "ScheduleTag"
+                        }
+                    }
+                ],
+                "UserData": {
+                    "Fn::Base64": {
+                        "Fn::Join": [
+                            "",
+                            [
+                                "#!/bin/bash -v\n",
+                                "mkdir /cust/crmLog\n",
+                                "HOSTNAME=\"$(/bin/hostname)\"\n",
+                                "cp /cust/home/jboss/templates/config.HOSTNAME.txt /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "IP=\"$(/bin/hostname -I)\"\n",
+								"echo \"$IP    $HOSTNAME\" >> /etc/hosts\n",
+                                "sed -i \"s/IPADDRESS/$IP/g\" /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "sed -i \"s/HOSTNAME/$HOSTNAME/g\" /cust/home/jboss/bin/config.$HOSTNAME.txt >> /cust/crmLog/crm-instance.log 2>&1\n",
+                                "export AWS_DEFAULT_REGION=",
+                                {
+                                    "Ref": "AWSDefaultRegion"
+                                },
+                                "\n",
+                                "export UVN_ENV=",
+                                {
+                                    "Ref": "EnvironmentType"
+                                },
+                                "\n",
+                                "echo $UVN_ENV > /cust/home/jboss/bin/avail_zone.txt\n",
+                                "PROXYLIST=",
+                                {
+                                    "Fn::Join": [
+                                        "",
+                                        [
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "ApacheModClusterInstanceOne",
+                                                    "PrivateIp"
+                                                ]
+                                            },
+                                            ":6666",
+                                            ",",
+                                            {
+                                                "Fn::GetAtt": [
+                                                    "ApacheModClusterInstanceTwo",
+                                                    "PrivateIp"
+                                                ]
+                                            },
+                                            ":6666"
+                                        ]
+                                    ]
+                                },
+                                "\n",
+                                "echo $PROXYLIST >> /cust/home/jboss/bin/proxylist.txt\n",
+								"sed -i \"s/PROXYLIST/$PROXYLIST/g\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/rdsoracle.uimvdc.univision.com/pora624.cabxijsx9suw.us-east-1.rds.amazonaws.com/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/CRMRDS/Pora624/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/crm/pool_crm_01/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+								"sed -i \"s/CRMTEST/XXXXXXXXXXXX/\" /cust/home/jboss/templates/standalone-full-ha.xml\n",
+                                "cp /cust/home/jboss/templates/standalone-full-ha.xml /cust/jboss-eap-6.3/standalone1/configuration/standalone.xml\n",
+                                "cp /cust/home/jboss/templates/standalone-full-ha.xml /cust/jboss-eap-6.3/standalone2/configuration/standalone.xml\n",
+                                "/bin/rm -rf /root/.aws\n",
+								"/bin/rm -f /root/.s3cfg\n",
+								"echo \"[Credentials]\" > /root/.boto\n",
+								"echo \"aws_access_key_id = AKIAIIFAPELNYLEBESJQ\" >> /root/.boto\n",
+								"echo \"aws_secret_access_key = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" >> /root/.boto\n",
+								"/usr/bin/aws s3 cp s3://uim-prod/aws/appl/crm/war/crm.war /cust/home/jboss/war/crm.war >> /cust/crmLog/crm-s3.log 2>&1\n",
+                                "su -l jboss -c '/cust/home/jboss/bin/deploy_eap6.sh crm.war",
+                                ">/tmp/deploy_eap6.myjob 2>&1' >> /cust/crmLog/crm-deploy.log 2>&1\n",
+                                "echo hello\n"
+                            ]
+                        ]
+                    }
+                }
+            }
+        },
+        "JBossClusterInstanceOneThreadCountAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "EvaluationPeriods": {
+                    "Ref": "EvaluationPeriods"
+                },
+                "Statistic": {
+                    "Ref": "Statistic"
+                },
+                "Threshold": {
+                    "Ref": "Threshold"
+                },
+                "AlarmDescription": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "Alarm if ",
+                            {
+                                "Ref": "MetricName"
+                            },
+                            " ",
+                            {
+                                "Ref": "ComparisonOperator"
+                            },
+                            " ",
+                            {
+                                "Ref": "Threshold"
+                            }
+                        ]
+                    ]
+                },
+                "Period": {
+                    "Ref": "Period"
+                },
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmSNSActionARN"
+                    }
+                ],
+                "Namespace": {
+                    "Ref": "NameSpace"
+                },
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": {
+                            "Ref": "JBossClusterInstanceOne"
+                        }
+                    }
+                ],
+                "ComparisonOperator": {
+                    "Ref": "ComparisonOperator"
+                },
+                "MetricName": {
+                    "Ref": "MetricName"
+                }
+            }
+        },
+        "JBossClusterInstanceTwoThreadCountAlarm": {
+            "Type": "AWS::CloudWatch::Alarm",
+            "Properties": {
+                "EvaluationPeriods": {
+                    "Ref": "EvaluationPeriods"
+                },
+                "Statistic": {
+                    "Ref": "Statistic"
+                },
+                "Threshold": {
+                    "Ref": "Threshold"
+                },
+                "AlarmDescription": {
+                    "Fn::Join": [
+                        "",
+                        [
+                            "Alarm if ",
+                            {
+                                "Ref": "MetricName"
+                            },
+                            " ",
+                            {
+                                "Ref": "ComparisonOperator"
+                            },
+                            " ",
+                            {
+                                "Ref": "Threshold"
+                            }
+                        ]
+                    ]
+                },
+                "Period": {
+                    "Ref": "Period"
+                },
+                "AlarmActions": [
+                    {
+                        "Ref": "AlarmSNSActionARN"
+                    }
+                ],
+                "Namespace": {
+                    "Ref": "NameSpace"
+                },
+                "Dimensions": [
+                    {
+                        "Name": "InstanceId",
+                        "Value": {
+                            "Ref": "JBossClusterInstanceTwo"
+                        }
+                    }
+                ],
+                "ComparisonOperator": {
+                    "Ref": "ComparisonOperator"
+                },
+                "MetricName": {
+                    "Ref": "MetricName"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "ApacheModClusterInstanceOne": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "ApacheModClusterInstanceOne",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Apache mod_cluster Server 1"
+        },
+        "ApacheModClusterInstanceTwo": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "ApacheModClusterInstanceTwo",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Apache mod_cluster Server 2"
+        },
+        "JBossClusterInstanceOne": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "JBossClusterInstanceOne",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Jboss 2-node cluster Server 1"
+        },
+        "JBossClusterInstanceTwo": {
+            "Value": {
+                "Fn::GetAtt": [
+                    "JBossClusterInstanceTwo",
+                    "PrivateIp"
+                ]
+            },
+            "Description": "The target IP address of Jboss 2-node cluster Server 2"
+        },
+        "S3AccessIamRole": {
+            "Value": {
+                "Ref": "S3AccessRole"
+            },
+            "Description": "The target IAM role for EC2 instance to access S3 bucket"
+        }
+    }
+}
