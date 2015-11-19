@@ -1,4 +1,4 @@
-# Hello mPartical. Thanks for visiting'
+# Hello mParticle. Thanks for visiting'
 
 # Devop's Scipts, Documentation, and Configs
 
