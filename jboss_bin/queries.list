@@ -1,0 +1,32 @@
+# Heap Usage
+/core-service=platform-mbean/type=memory:read-attribute(name=heap-memory-usage)
+
+# Non Heap Usage
+/core-service=platform-mbean/type=memory:read-attribute(name=non-heap-memory-usage)
+
+# CPU load
+/core-service=platform-mbean/type=operating-system:read-attribute(name=system-load-average)
+
+# Uptime 
+/core-service=platform-mbean/type=runtime:read-attribute(name=uptime)
+
+# GC
+/core-service=platform-mbean/type=garbage-collector/name=ParNew:read-attribute(name=collection-count)
+/core-service=platform-mbean/type=garbage-collector/name=ParNew:read-attribute(name=collection-time)
+
+# Active Sessions
+/deployment=crm.war/subsystem=web:read-attribute(name=active-sessions)
+
+# Hulk request count
+/deployment=crm.war/subsystem=web/servlet=crm:read-attribute(name=requestCount)
+
+# Class loading
+/core-service=platform-mbean/type=class-loading:read-attribute(name=total-loaded-class-count)
+/core-service=platform-mbean/type=class-loading:read-attribute(name=unloaded-class-count)
+
+# Compilation
+/core-service=platform-mbean/type=compilation:read-attribute(name=total-compilation-time)
+
+# Threading
+/core-service=platform-mbean/type=threading:read-attribute(name=thread-count)
+/core-service=platform-mbean/type=threading:read-attribute(name=daemon-thread-count)
