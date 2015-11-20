@@ -1,4 +1,5 @@
-# Hello mParticle. Thanks for visiting'
+# Hello. Thanks for visiting the gitgub site
+# of Aaron Potter showing some of his work
 
 # Devop's Scipts, Documentation, and Configs
 
