@@ -1,0 +1,35 @@
+#!/bin/bash
+yum -y update
+yum install -y ruby
+yum install -y aws-cli
+cd /home/ec2-user
+aws s3 cp s3://aws-codedeploy-us-east-1/latest/install . --region us-east-1
+chmod +x ./install
+./install auto
+
+service codedeploy-agent status
+
+# Autoscale group
+aws deploy create-deployment-group \
+  --application-name DevOpsDeploy \
+  --auto-scaling-groups AmazonSG \
+  --deployment-group-name DevOpsDG \
+  --deployment-config-name CodeDeployDefault.OneAtATime \
+  --service-role-arn arn:aws:iam::336144367540:role/CodeDeploy
+
+# Group by Tag
+aws deploy create-deployment-group \
+  --application-name DevOpsDeploy \
+  --ec2-tag-filters Key=DeployGroup,Value=DevOpsDeployAS,Type=KEY_AND_VALUE \
+  --deployment-group-name DevOpsDG \
+  --deployment-config-name CodeDeployDefault.OneAtATime \
+  --service-role-arn arn:aws:iam::336144367540:role/CodeDeploy
+
+
+  aws deploy create-deployment --application-name DevOpsDeploy --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name DevOpsDG --s3-location bucket=codebundles,bundleType=tgz,key=DevOps.tar.gz
+
+  aws deploy list-deployments --application-name DevOpsDeploy --deployment-group-name DevOpsDG --query "deployments" --output text
+
+  d-V2PB99ULC
+
+  aws deploy get-deployment --deployment-id d-V2PB99ULC --query "deploymentInfo.status" --output text
