@@ -14,4 +14,4 @@ metadata:
 spec:
   type: service                 # service | website | library | tool
   lifecycle: production         # experimental | development | production
-  owner: user:default/aaronpotter  # or a group: group:default/cloud-team
+  owner: user:aaronpotter  # or a group: group:default/cloud-team
