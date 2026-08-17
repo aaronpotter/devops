@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-service              # must be lowercase, no spaces
+  description: What this thing does
+  tags:
+    - aws
+    - terraform
+    - production
+  links:
+    - url: https://github.com/aaronpotter/devops
+      title: GitHub Repo
+      icon: github
+spec:
+  type: service                 # service | website | library | tool
+  lifecycle: production         # experimental | development | production
+  owner: user:default/aaronpotter  # or a group: group:default/cloud-team
