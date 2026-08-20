@@ -1,4 +1,4 @@
-# Hello. Thanks for visiting the gitgub site
+# Hello. Thanks for visiting the github site
 # of Aaron Potter showing some of his work
 
 # Devop's Scipts, Documentation, and Configs
